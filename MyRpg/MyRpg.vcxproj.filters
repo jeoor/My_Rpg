@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="inc\character">
+      <UniqueIdentifier>{13574a9c-185b-4d0d-83d6-0f46e892f8ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\config">
+      <UniqueIdentifier>{686cba2d-ef3e-4c42-ab82-3db182b41c2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\character">
+      <UniqueIdentifier>{89638250-165e-40c2-87b0-f165e2e2f8a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\img_edit">
+      <UniqueIdentifier>{ab8adb75-f182-47f5-b286-4ffe64cedd04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\img_edit">
+      <UniqueIdentifier>{9319c18c-b9a2-43bc-b60f-71604d944aee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="animation.h">
+      <Filter>inc\character</Filter>
+    </ClInclude>
+    <ClInclude Include="character.h">
+      <Filter>inc\character</Filter>
+    </ClInclude>
+    <ClInclude Include="frame.h">
+      <Filter>inc\character</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>inc\character</Filter>
+    </ClInclude>
+    <ClInclude Include="alpha.h">
+      <Filter>inc\img_edit</Filter>
+    </ClInclude>
+    <ClInclude Include="edit.h">
+      <Filter>inc\img_edit</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>inc\config</Filter>
+    </ClInclude>
+    <ClInclude Include="kbmessage.h">
+      <Filter>inc\config</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="animation.cpp">
+      <Filter>src\character</Filter>
+    </ClCompile>
+    <ClCompile Include="character.cpp">
+      <Filter>src\character</Filter>
+    </ClCompile>
+    <ClCompile Include="frame.cpp">
+      <Filter>src\character</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>src\character</Filter>
+    </ClCompile>
+    <ClCompile Include="alpha.cpp">
+      <Filter>src\img_edit</Filter>
+    </ClCompile>
+    <ClCompile Include="edit.cpp">
+      <Filter>src\img_edit</Filter>
+    </ClCompile>
+    <ClCompile Include="rpg_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

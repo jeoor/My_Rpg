@@ -1,0 +1,35 @@
+#ifndef ANIMATION_H
+#define ANIMATION_H
+
+#include "frame.h"
+#include "config.h"
+class Animation
+{
+public:
+	Animation() = default;
+	Animation(Frame* frames, int frameCount, int offsetX = 0, int offsetY = 0, bool loop = true);
+	void play(int px, int py, bool& filp);
+	int getW() const;
+	int getH() const;
+	int getCurrentFrame() const;
+	int getFrameCount() const;
+	int getFX() const;
+	int getFY() const;
+	bool Loop() const;
+	void setCurrentFrame(int index);
+
+private:
+	Frame* frames = nullptr;
+	int frameCount = 0;
+	int currentFrame = 0;
+	int Aw = 0, Ah = 0;							// 像素宽高
+	int offsetX = 0, offsetY = 0;				// 像素偏移量
+	int offsetXFilpped = 0, offsetYFlipped = 0; // 翻转后的偏移量
+	int putX = 0, putY = 0;						// 绘制位置
+	int putXOFD = 0, putYOFD = 0;				// 翻转后的绘制位置
+	bool loop = true;							//是否循环播放
+	int timer = 0;								// 计时器
+};
+
+
+#endif
