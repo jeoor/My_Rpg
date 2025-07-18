@@ -10,7 +10,6 @@ void ZoomImage(IMAGE* TarImg, IMAGE* OriImg, double ZoomRate)
 		for (int j = 0; j < TarImg->getwidth(); j++)
 			M[j + i * TarImg->getwidth()] = N[(int)(j / ZoomRate) + (int)(i / ZoomRate) * OriImg->getwidth()];
 }
-
 void FlipImage(IMAGE* TarImg, IMAGE* OriImg)
 {
 	TarImg->Resize((int)(OriImg->getwidth()), (int)(OriImg->getheight()));

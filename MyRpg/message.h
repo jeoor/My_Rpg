@@ -1,6 +1,8 @@
 #ifndef __KBMESSAGE_H__
 #define __KBMESSAGE_H__
 
+#include <windows.h>
+
 #if __cplusplus >= 201402L
 constexpr int VK_A = 0x41;
 constexpr int VK_B = 0x42;

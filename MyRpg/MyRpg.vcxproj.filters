@@ -33,6 +33,9 @@
     <Filter Include="src\utils">
       <UniqueIdentifier>{c485278d-918f-4a96-a75e-ea99c372992c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\message">
+      <UniqueIdentifier>{e6d4bc24-84bb-4155-968d-6014a87d01d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -56,7 +59,7 @@
     <ClInclude Include="config.h">
       <Filter>inc\config</Filter>
     </ClInclude>
-    <ClInclude Include="kbmessage.h">
+    <ClInclude Include="message.h">
       <Filter>inc\message</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">

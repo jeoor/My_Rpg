@@ -17,6 +17,7 @@ public:
 	int getFY() const;
 	bool Loop() const;
 	void setCurrentFrame(int index);
+	bool haveDone() const;
 
 private:
 	Frame* frames = nullptr;

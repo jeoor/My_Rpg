@@ -5,7 +5,7 @@
 #include <cmath>
 #include <string>
 #include "animation.h"
-#include "kbmessage.h"
+#include "message.h"
 #include "utils.h"
 
 class Character
@@ -21,14 +21,17 @@ public:
 	void set(int x, int y, Animation* animations, int AnimationCount);
 	void set(int x, int y);
 	void set(Animation* animations, int AnimationCount);
-	void playAnimation();
+	void updateAnimation();
+	virtual void updateState() = 0;
 	void Cmove();
-	void KBmove(ExMessage& msg);
 	void move2(int x, int y);
 	void setCurrentAnimation(int index);
-	void changeFilp();
+	int getCurrentAnimation() const;
+	void changeFlip();
 	int getX() const;
 	int getY() const;
+	int getTx() const;
+	int getTy() const;
 	int getW() const;
 	int getH() const;
 	dir& getDir();
@@ -38,11 +41,13 @@ public:
 	void setRight(bool isMRight);
 	void setDir(dir di);
 	bool isMoving() const;
-	void setKBcontrol(bool isKB);
-	bool KBcon() const;
+	bool haveT() const;
+	void setTarget(int x, int y);
 
 private:
 	int Cx = 0, Cy = 0;				// 人物位置
+	int Tx = 0, Ty = 0;				// 目标位置
+	bool haveTarget = false;		// 是否有目标位置
 	int currentAnimation = 0;
 	Animation* animations = nullptr;
 	int AnimationCount = 0;
@@ -53,7 +58,6 @@ private:
 		isMoveDown = false,
 		isMoveLeft = false,
 		isMoveRight = false;		// 是否移动
-	bool KBcontrol = true;			// 正在键盘控制
 };
 
 #endif

@@ -15,7 +15,9 @@ public:
 	Player() = default;
 	~Player() = default;
 	Player(int x, int y);
-
+	
+	void updateState() override;
+	void getMessage(ExMessage& msg);
 	void Idle();
 	void Attack();
 	void Run();
