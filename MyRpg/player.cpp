@@ -151,5 +151,13 @@ void Player::getMessage(ExMessage& msg)
 void Player::Idle() { setCurrentAnimation(0); }
 void Player::Attack() { setCurrentAnimation(1); }
 void Player::Run() { setCurrentAnimation(2); }
-void Player::setAttacking(bool isATK) { isAttacking = isATK; }
+void Player::setAttacking(bool isATK) 
+{
+    isAttacking = isATK;
+    if (isATK) 
+    {
+        setCurrentAnimation(1);
+        animations[1].setCurrentFrame(0);
+    }
+}
 bool Player::Attacking() const { return isAttacking; }
