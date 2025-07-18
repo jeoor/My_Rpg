@@ -1,5 +1,5 @@
-#ifndef FRAME_H
-#define FRAME_H
+#ifndef __FRAME_H__
+#define __FRAME_H__
 
 #include <easyx.h>
 #include "edit.h"
@@ -7,7 +7,7 @@
 class Frame
 {
 public:
-	Frame() = default;
+	Frame() {}
 	Frame(LPCTSTR pImgFile, int w, int h, double ZoomRate);
 	void set(LPCTSTR pImgFile, int w, int h, double ZoomRate);
 	void putframe(int px, int py, bool& flip);

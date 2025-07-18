@@ -1,11 +1,12 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef __CHARACTER_H__
+#define __CHARACTER_H__
 
 #include <iostream>
-#include <string>
 #include <cmath>
+#include <string>
 #include "animation.h"
 #include "kbmessage.h"
+#include "utils.h"
 
 class Character
 {
@@ -17,8 +18,6 @@ public:
 	};
 	Character() = default;
 	virtual ~Character() = default;
-	Character(int x, int y, Animation* animations, int AnimationCount);
-	virtual void init() = 0;
 	void set(int x, int y, Animation* animations, int AnimationCount);
 	void set(int x, int y);
 	void set(Animation* animations, int AnimationCount);

@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
 
 #include "character.h"
 class Player : public Character
@@ -12,8 +12,9 @@ private:
 	bool isAttacking = false;	// ÊÇ·ñÕýÔÚ¹¥»÷
 
 public:
-	~Player() override = default;
-	void init() override;
+	Player() = default;
+	~Player() = default;
+	Player(int x, int y);
 
 	void Idle();
 	void Attack();

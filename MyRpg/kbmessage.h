@@ -1,5 +1,5 @@
-#ifndef KBMESSAGE_H
-#define KBMESSAGE_H
+#ifndef __KBMESSAGE_H__
+#define __KBMESSAGE_H__
 
 #if __cplusplus >= 201402L
 constexpr int VK_A = 0x41;

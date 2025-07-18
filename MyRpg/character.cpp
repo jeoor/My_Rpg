@@ -1,9 +1,10 @@
 #include "character.h"
-
+/*
 Character::Character(int x, int y, Animation* animations, int AnimationCount)
 {
 	set(x, y, animations, AnimationCount);
 }
+*/
 void Character::set(int x, int y, Animation* animations, int AnimationCount)
 {
 	Cx = x, Cy = y;

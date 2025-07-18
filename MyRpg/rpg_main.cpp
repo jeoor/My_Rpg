@@ -16,12 +16,12 @@ inline static void initWindow(int w, int h, COLORREF color)
     initgraph(w, h, EX_SHOWCONSOLE);
     setbkcolor(color);
 }
-
+/*
 static void init(Character& C)
 {
     C.init();
 }
-
+*/
 inline static void circle(int x, int y, int r, COLORREF color)
 {
     setfillcolor(color);
@@ -34,9 +34,9 @@ int main()
     initWindow(WINDOWS_W, WINDOWS_H, RGB(40, 31, 48));
 
     // Íæ¼Ò
-    Player player;
-    init(player);
-    player.set(WINDOWS_W / 2, WINDOWS_H / 2);
+	Player player(WINDOWS_W / 2, WINDOWS_H / 2);
+	// init(player);
+	// player.set(WINDOWS_W / 2, WINDOWS_H / 2);
 
     ExMessage msg;
 

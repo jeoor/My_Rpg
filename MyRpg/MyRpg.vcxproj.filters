@@ -24,6 +24,15 @@
     <Filter Include="src\img_edit">
       <UniqueIdentifier>{9319c18c-b9a2-43bc-b60f-71604d944aee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc\message">
+      <UniqueIdentifier>{51cef5ee-573f-4c9b-a04e-298ddbd56d32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\util">
+      <UniqueIdentifier>{e3afd6ca-22dd-4e77-9499-4fe5313435e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils">
+      <UniqueIdentifier>{c485278d-918f-4a96-a75e-ea99c372992c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h">
@@ -48,7 +57,10 @@
       <Filter>inc\config</Filter>
     </ClInclude>
     <ClInclude Include="kbmessage.h">
-      <Filter>inc\config</Filter>
+      <Filter>inc\message</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>inc\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="rpg_main.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>src\utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

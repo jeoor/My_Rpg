@@ -1,5 +1,5 @@
-#ifndef ANIMATION_H
-#define ANIMATION_H
+#ifndef __ANIMATION_H__
+#define __ANIMATION_H__
 
 #include "frame.h"
 #include "config.h"
