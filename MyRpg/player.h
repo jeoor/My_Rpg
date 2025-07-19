@@ -19,8 +19,8 @@ public:
 
 private:
 	Frame idle[4];				// 待机动画
-	Frame attack[7];			//	攻击动画
 	Frame run[8];				// 跑步动画
+	Frame attack[7];			//	攻击动画
 	Animation animations[3];
 	bool isAttacking = false;	// 是否正在攻击
 };

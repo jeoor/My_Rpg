@@ -73,6 +73,7 @@ int main()
 
     // 玩家
     Player player(WINDOWS_W / 2, WINDOWS_H / 2);
+	Enemy enemy(-5, -5);
 
     // 将ExMessage移到堆上，减少栈空间占用
     ExMessage* msg = new ExMessage;
@@ -99,15 +100,17 @@ int main()
 
         player.getMessage(msg); // 键盘消息处理
         player.updateState(); // 更新状态
+		enemy.move2((int)player.getX(), (int)player.getY()); // 敌人跟随玩家
+		enemy.updateState(); // 更新敌人状态
 
         // 检查是否有新指令
         if (g_has_command.exchange(false)) {
+            std::cin.clear();
             std::string cmd;
             {
                 std::lock_guard<std::mutex> lock(g_command_mutex);
                 cmd = g_command;
             }
-            std::cin.clear();
             if (cmd == "exit")
             {
 				std::cout << "Exiting game..." << std::endl;
@@ -133,6 +136,14 @@ int main()
             else if (cmd == "flip")
             {
                 player.changeFlip();
+                if (player.getDir() == Character::dir::right)
+                {
+                    player.setDir(Character::dir::left);
+                }
+                else
+                {
+                    player.setDir(Character::dir::right);
+				}
             }
             else
             {
@@ -148,9 +159,21 @@ int main()
         if (player.haveT())
         {
             setfillcolor(RED);
+			line(player.getX(), player.getY(), player.getTx(), player.getTy()); // 绘制目标线
             solidcircle(player.getTx(), player.getTy(), 5); // 绘制目标位置圆点
         }
-        player.updateAnimation();
+
+        line(player.getX(), player.getY(), enemy.getX(), enemy.getY());
+        if (player.getY() > enemy.getY())
+        {
+            enemy.updateAnimation();
+            player.updateAnimation();
+        }
+        else
+        {
+            player.updateAnimation();
+            enemy.updateAnimation();
+        }
 
         FlushBatchDraw();
 

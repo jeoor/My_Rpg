@@ -5,32 +5,34 @@ Enemy::Enemy(int x, int y)
     // 待机动画
     for (int i = 0; i < 4; ++i)
     {
-        std::wstring path = L"source/characters/basic/basic_animesword_idle_0" + my_utils::to_wstring(i + 1) + L".png";
-        idle[i].set((LPCTSTR)path.c_str(), 32, 16, ZOOM_RATE);
+        std::wstring path = L"source/characters/mooseman/mooseman_idle_0" + my_utils::to_wstring(i + 1) + L".png";
+        idle[i].set((LPCTSTR)path.c_str(), 16, 16, ZOOM_RATE);
     }
-    Animation idleAnimation(idle, 4, 5, 15);
-
-    // 攻击动画
-    for (int i = 0; i < 7; ++i)
-    {
-        std::wstring path = L"source/characters/basic/basic_animesword_attack_0" + my_utils::to_wstring(i + 1) + L".png";
-        attack[i].set((LPCTSTR)path.c_str(), 48, 24, ZOOM_RATE);
-    }
-    Animation attackAnimation(attack, 7, 8, 21, false);
+    Animation idleAnimation(idle, 4, 6, 15);
 
     // 跑步动画
-    for (int i = 0; i < 8; ++i)
+    for (int i = 0; i < 4; ++i)
     {
-        std::wstring path = L"source/characters/basic/basic_animesword_run_0" + my_utils::to_wstring(i + 1) + L".png";
+        std::wstring path = L"source/characters/mooseman/mooseman_run_0" + my_utils::to_wstring(i + 1) + L".png";
         run[i].set((LPCTSTR)path.c_str(), 16, 16, ZOOM_RATE);
     }
-    Animation runAnimation(run, 8, 8, 14);
+    Animation runAnimation(run, 4, 5, 14);
+
+    // 攻击动画
+    for (int i = 0; i < 6; ++i)
+    {
+        std::wstring path = L"source/characters/mooseman/mooseman_attack_0" + my_utils::to_wstring(i + 1) + L".png";
+        attack[i].set((LPCTSTR)path.c_str(), 20, 16, ZOOM_RATE);
+    }
+    Animation attackAnimation(attack, 6, 6, 15, false);
+
 
     // 设置动画
     animations[0] = idleAnimation;
-    animations[1] = attackAnimation;
-    animations[2] = runAnimation;
+    animations[1] = runAnimation;
+    animations[2] = attackAnimation;
     set(x, y, animations, 3);
+	setSpeed(ENEMY_SPEED); // 设置移动速度
 }
 
 void Enemy::updateState()
@@ -39,7 +41,7 @@ void Enemy::updateState()
     if (Attacking())
     {
         // 只在刚进入攻击状态时切换动画并重置帧
-        if (getCurrentAnimation() != 1)
+        if (getCurrentAnimation() != 2)
             Attack();
         // 播放攻击动画
         if (animations[getCurrentAnimation()].haveDone())
@@ -50,7 +52,7 @@ void Enemy::updateState()
     // 移动状态
     if (isMoving())
     {
-        if (getCurrentAnimation() != 2)
+        if (getCurrentAnimation() != 1)
             Run();
         Cmove();
     }
@@ -63,16 +65,17 @@ void Enemy::updateState()
     if (haveT())
         move2(getTx(), getTy());
 }
+
 void Enemy::Idle() { setCurrentAnimation(0); }
-void Enemy::Attack() { setCurrentAnimation(1); }
-void Enemy::Run() { setCurrentAnimation(2); }
+void Enemy::Run() { setCurrentAnimation(1); }
+void Enemy::Attack() { setCurrentAnimation(2); }
 void Enemy::setAttacking(bool isATK)
 {
     isAttacking = isATK;
     if (isATK)
     {
-        setCurrentAnimation(1);
-        animations[1].setCurrentFrame(0);
+        setCurrentAnimation(2);
+        animations[2].setCurrentFrame(0);
     }
 }
 bool Enemy::Attacking() const { return isAttacking; }

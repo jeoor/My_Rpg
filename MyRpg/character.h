@@ -18,8 +18,8 @@ public:
 	};
 	Character() = default;
 	virtual ~Character() = default;
-	void set(int x, int y, Animation* animations, int AnimationCount);
-	void set(int x, int y);
+	void set(double x, double y, Animation* animations, int AnimationCount);
+	void set(double x, double y);
 	void set(Animation* animations, int AnimationCount);
 	void updateAnimation();
 	virtual void updateState() = 0;
@@ -28,8 +28,8 @@ public:
 	void setCurrentAnimation(int index);
 	int getCurrentAnimation() const;
 	void changeFlip();
-	int getX() const;
-	int getY() const;
+	double getX() const;
+	double getY() const;
 	int getTx() const;
 	int getTy() const;
 	int getW() const;
@@ -43,9 +43,11 @@ public:
 	bool isMoving() const;
 	bool haveT() const;
 	void setTarget(int x, int y);
+	void setSpeed(double speed);
 
 private:
-	int Cx = 0, Cy = 0;				// 人物位置
+	double Speed = 1.0;				// 移动速度
+	double Cx = 0.0, Cy = 0.0;		// 人物位置
 	int Tx = 0, Ty = 0;				// 目标位置
 	bool haveTarget = false;		// 是否有目标位置
 	int currentAnimation = 0;

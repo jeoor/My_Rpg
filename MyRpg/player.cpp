@@ -10,6 +10,14 @@ Player::Player(int x, int y)
 	}
 	Animation idleAnimation(idle, 4, 5, 15);
 
+    // 跑步动画
+    for (int i = 0; i < 8; ++i)
+    {
+        std::wstring path = L"source/characters/basic/basic_animesword_run_0" + my_utils::to_wstring(i + 1) + L".png";
+        run[i].set((LPCTSTR)path.c_str(), 16, 16, ZOOM_RATE);
+    }
+    Animation runAnimation(run, 8, 8, 14);
+
 	// 攻击动画
 	for (int i = 0; i < 7; ++i)
 	{
@@ -18,19 +26,13 @@ Player::Player(int x, int y)
 	}
 	Animation attackAnimation(attack, 7, 8, 21, false);
 
-	// 跑步动画
-	for (int i = 0; i < 8; ++i)
-	{
-		std::wstring path = L"source/characters/basic/basic_animesword_run_0" + my_utils::to_wstring(i + 1) + L".png";
-		run[i].set((LPCTSTR)path.c_str(), 16, 16, ZOOM_RATE);
-	}
-	Animation runAnimation(run, 8, 8, 14);
 
 	// 设置动画
 	animations[0] = idleAnimation;
-	animations[1] = attackAnimation;
-	animations[2] = runAnimation;
-	set(x, y, animations, 3);
+	animations[1] = runAnimation;
+	animations[2] = attackAnimation;
+	set(x, y, animations, 3); 
+    setSpeed(PLAYER_SPEED); // 设置移动速度
 }
 
 void Player::updateState()
@@ -39,7 +41,7 @@ void Player::updateState()
     if (Attacking())
     {
         // 只在刚进入攻击状态时切换动画并重置帧
-        if (getCurrentAnimation() != 1)
+        if (getCurrentAnimation() != 2)
             Attack();
         // 播放攻击动画
         if (animations[getCurrentAnimation()].haveDone())
@@ -50,7 +52,7 @@ void Player::updateState()
     // 移动状态
     if (isMoving())
     {
-        if (getCurrentAnimation() != 2)
+        if (getCurrentAnimation() != 1)
             Run();
         Cmove();
     }
@@ -72,16 +74,20 @@ void Player::getMessage(ExMessage *msg)
         {
             switch (msg->vkcode)
             {
-            case VK_W: 
+            case VK_W:
+			case VK_UP:
                 setUp(true); 
                 break;
             case VK_A: 
+			case VK_LEFT:
                 setLeft(true); 
                 break;
             case VK_S: 
+			case VK_DOWN:
                 setDown(true); 
                 break;
             case VK_D: 
+			case VK_RIGHT:
                 setRight(true); 
                 break;
             case VK_J: 
@@ -93,20 +99,24 @@ void Player::getMessage(ExMessage *msg)
             switch (msg->vkcode)
             {
             case VK_W: 
+			case VK_UP:
                 setUp(false); 
                 break;
             case VK_A: 
+			case VK_LEFT:
                 setLeft(false); 
                 break;
             case VK_S: 
+			case VK_DOWN:
                 setDown(false); 
                 break;
             case VK_D: 
+			case VK_RIGHT:
                 setRight(false); 
                 break;
             }
         }
-        if (msg->message == WM_LBUTTONDOWN)
+        if (msg->message == WM_LBUTTONUP)
         {
             setTarget(msg->x, msg->y);
         }
@@ -137,15 +147,15 @@ void Player::getMessage(ExMessage *msg)
 }
 
 void Player::Idle() { setCurrentAnimation(0); }
-void Player::Attack() { setCurrentAnimation(1); }
-void Player::Run() { setCurrentAnimation(2); }
+void Player::Run() { setCurrentAnimation(1); }
+void Player::Attack() { setCurrentAnimation(2); }
 void Player::setAttacking(bool isATK) 
 {
     isAttacking = isATK;
     if (isATK) 
     {
-        setCurrentAnimation(1);
-        animations[1].setCurrentFrame(0);
+        setCurrentAnimation(2);
+        animations[2].setCurrentFrame(0);
     }
 }
 bool Player::Attacking() const { return isAttacking; }

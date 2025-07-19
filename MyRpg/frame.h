@@ -10,7 +10,7 @@ public:
 	Frame() {}
 	Frame(LPCTSTR pImgFile, int w, int h, double ZoomRate);
 	void set(LPCTSTR pImgFile, int w, int h, double ZoomRate);
-	void putframe(int px, int py, bool& flip);
+	void putframe(double px, double py, bool& flip);
 	void flipframe();
 	int getW() const;
 	int getH() const;

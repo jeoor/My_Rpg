@@ -7,7 +7,7 @@ Animation::Animation(Frame* frames, int frameCount, int offsetX, int offsetY, bo
 	Ah = frames[0].getH();
 	offsetXFilpped = Aw / ZOOM_RATE - offsetX - 2, offsetYFlipped = offsetY;
 }
-void Animation::play(int px, int py, bool& filp)
+void Animation::play(double px, double py, bool& filp)
 {
 	if (frameCount == 0)
 		return;
