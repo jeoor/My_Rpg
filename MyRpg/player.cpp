@@ -32,7 +32,8 @@ Player::Player(int x, int y)
 	animations[1] = runAnimation;
 	animations[2] = attackAnimation;
 	set(x, y, animations, 3); 
-    setSpeed(PLAYER_SPEED); // 设置移动速度
+    setMaxSpeed(PLAYER_MAX_SPEED); // 设置移动速度
+	setAcceleration(PLAYER_ACCELERATION); // 设置加速度
 }
 
 void Player::updateState()

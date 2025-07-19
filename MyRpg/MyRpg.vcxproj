@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="alpha.h" />
     <ClInclude Include="animation.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="edit.h" />
@@ -141,17 +142,20 @@
     <ClInclude Include="frame.h" />
     <ClInclude Include="message.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="timer.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="alpha.cpp" />
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="edit.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="frame.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="rpg_main.cpp" />
+    <ClCompile Include="timer.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -32,7 +32,8 @@ Enemy::Enemy(int x, int y)
     animations[1] = runAnimation;
     animations[2] = attackAnimation;
     set(x, y, animations, 3);
-	setSpeed(ENEMY_SPEED); // 设置移动速度
+	setMaxSpeed(ENEMY_MAX_SPEED); // 设置移动速度
+	setAcceleration(ENEMY_ACCELERATION); // 设置加速度
 }
 
 void Enemy::updateState()

@@ -3,7 +3,7 @@
 
 #include <windows.h>
 
-#if __cplusplus >= 201402L
+#if __cplusplus >= 201103L
 constexpr int VK_A = 0x41;
 constexpr int VK_B = 0x42;
 constexpr int VK_C = 0x43;

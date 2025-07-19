@@ -87,7 +87,7 @@ int main()
     // 启动控制台输入线程
     std::thread inputThread(ConsoleInputThread);
     inputThread.detach();
-
+    
     BeginBatchDraw();
     while (true)
     {
@@ -159,11 +159,10 @@ int main()
         if (player.haveT())
         {
             setfillcolor(RED);
-			line(player.getX(), player.getY(), player.getTx(), player.getTy()); // 绘制目标线
+			line(static_cast<int>(player.getX()), static_cast<int>(player.getY()) - player.getHeight() * ZOOM_RATE / 2, static_cast<int>(player.getTx()), static_cast<int>(player.getTy())); // 绘制目标线
             solidcircle(player.getTx(), player.getTy(), 5); // 绘制目标位置圆点
         }
 
-        line(player.getX(), player.getY(), enemy.getX(), enemy.getY());
         if (player.getY() > enemy.getY())
         {
             enemy.updateAnimation();
@@ -175,6 +174,9 @@ int main()
             enemy.updateAnimation();
         }
 
+        line(static_cast<int>(player.getX()), static_cast<int>(player.getY()) - player.getHeight() * ZOOM_RATE / 2, static_cast<int>(enemy.getX()), static_cast<int>(enemy.getY()) - enemy.getHeight() * ZOOM_RATE / 2);
+        circle(static_cast<int>(player.getX()), static_cast<int>(player.getY()) - player.getHeight() * ZOOM_RATE / 2, player.getCollision() * ZOOM_RATE);// 绘制玩家碰撞范围
+        circle(static_cast<int>(enemy.getX()), static_cast<int>(enemy.getY()) - enemy.getHeight() * ZOOM_RATE / 2, enemy.getCollision() * ZOOM_RATE);// 绘制敌人碰撞范围
         FlushBatchDraw();
 
         QueryPerformanceCounter(&end);
