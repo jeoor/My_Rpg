@@ -40,16 +40,10 @@ void Player::updateState()
     {
         // 只在刚进入攻击状态时切换动画并重置帧
         if (getCurrentAnimation() != 1)
-        {
-            setCurrentAnimation(1);
-            animations[1].setCurrentFrame(0);
-        }
+            Attack();
         // 播放攻击动画
         if (animations[getCurrentAnimation()].haveDone())
-        {
             setAttacking(false);
-            animations[0].setCurrentFrame(0);
-        }
         return;
     }
 
@@ -57,32 +51,26 @@ void Player::updateState()
     if (isMoving())
     {
         if (getCurrentAnimation() != 2)
-        {
-            setCurrentAnimation(2);
-            animations[2].setCurrentFrame(0);
-        }
+            Run();
         Cmove();
     }
     else
     {
         if (getCurrentAnimation() != 0)
-        {
-            setCurrentAnimation(0);
-            animations[0].setCurrentFrame(0);
-        }
+			Idle();
     }
 
     if (haveT())
         move2(getTx(), getTy());
 }
-void Player::getMessage(ExMessage& msg)
+void Player::getMessage(ExMessage *msg)
 {
     // 一帧内处理所有消息
-    while (peekmessage(&msg, EX_MOUSE | EX_KEY))
+    while (peekmessage(msg, EX_MOUSE | EX_KEY))
     {
-        if (msg.message == WM_KEYDOWN)
+        if (msg->message == WM_KEYDOWN)
         {
-            switch (msg.vkcode)
+            switch (msg->vkcode)
             {
             case VK_W: 
                 setUp(true); 
@@ -100,9 +88,9 @@ void Player::getMessage(ExMessage& msg)
                 setAttacking(true); break;
             }
         }
-        if (msg.message == WM_KEYUP)
+        if (msg->message == WM_KEYUP)
         {
-            switch (msg.vkcode)
+            switch (msg->vkcode)
             {
             case VK_W: 
                 setUp(false); 
@@ -118,13 +106,13 @@ void Player::getMessage(ExMessage& msg)
                 break;
             }
         }
-        if (msg.message == WM_LBUTTONDOWN)
+        if (msg->message == WM_LBUTTONDOWN)
         {
-            setTarget(msg.x, msg.y);
+            setTarget(msg->x, msg->y);
         }
-        if (msg.message == WM_RBUTTONDOWN)
+        if (msg->message == WM_RBUTTONDOWN)
         {
-			int x = msg.x;
+			int x = msg->x;
 			// 如果鼠标点击位置在角色左侧，设置方向为左
             if (x <= getX())
             {

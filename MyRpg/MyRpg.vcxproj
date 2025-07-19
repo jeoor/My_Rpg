@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -137,6 +137,7 @@
     <ClInclude Include="character.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="edit.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="frame.h" />
     <ClInclude Include="message.h" />
     <ClInclude Include="player.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="edit.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="frame.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="rpg_main.cpp" />

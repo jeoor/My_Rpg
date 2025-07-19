@@ -65,6 +65,9 @@
     <ClInclude Include="utils.h">
       <Filter>inc\util</Filter>
     </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>inc\character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp">
@@ -90,6 +93,9 @@
     </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>src\character</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

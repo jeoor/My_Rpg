@@ -8,7 +8,7 @@ constexpr inline int ZOOM_RATE = 5;				// 缩放率
 constexpr inline int FPS = 60;					// 帧率
 constexpr inline int FRAME_BREAK = 1000 / FPS;  // 帧间隔
 constexpr inline int Step = 1;					// 移动步长
-constexpr inline int DELTA_TIME = 6;            // 动画帧间隔
+constexpr inline int DELTA_TIME = 5;            // 动画帧间隔
 constexpr inline int DELTA = 1;					// 帧更新间隔
 
 #else
@@ -16,9 +16,9 @@ constexpr inline int DELTA = 1;					// 帧更新间隔
 #define WINDOWS_H 750				// 窗口高度
 #define ZOOM_RATE 5					// 缩放率
 #define FPS 60						// 帧率
-#define FRAME_BREAK 1000 / 60		// 帧间隔
+#define FRAME_BREAK 1000 / FPS		// 帧间隔
 #define Step 1						// 移动步长
-#define DELTA_TIME 6				// 动画帧间隔
+#define DELTA_TIME 5				// 动画帧间隔
 #define DELTA 1						// 帧更新间隔
 #define inline
 

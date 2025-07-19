@@ -1,22 +1,20 @@
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#ifndef __ENEMY_H__
+#define __ENEMY_H__
 
 #include "character.h"
-class Player : public Character
+
+class Enemy : public Character
 {
 public:
-	Player() = default;
-	~Player() = default;
-	Player(int x, int y);
-	
+	Enemy() = default;
+	~Enemy() = default;
+	Enemy(int x, int y);
 	void updateState() override;
-	void getMessage(ExMessage *msg);
 	void Idle();
 	void Attack();
 	void Run();
 	void setAttacking(bool isATK);
 	bool Attacking() const;
-
 private:
 	Frame idle[4];				// ´ý»ú¶¯»­
 	Frame attack[7];			//	¹¥»÷¶¯»­
@@ -26,3 +24,4 @@ private:
 };
 
 #endif
+

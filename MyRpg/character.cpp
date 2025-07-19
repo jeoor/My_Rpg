@@ -94,16 +94,18 @@ void Character::move2(int x, int y)
     }
     else
     {
+        std::cout << "Done! " << Cx << ", " << Cy << " -> " << x << ", " << y << " : " << delta_len << std::endl;
         haveTarget = false;
-        std::cout << "DONE! " << Cx << ", " << Cy << " -> " << x << ", " << y << " : " << delta_len << std::endl;
-        setUp(false); setDown(false); setLeft(false); setRight(false); // 只在停止时清除
+        setUp(false); setDown(false); setLeft(false); setRight(false);
     }
 }
 void Character::setCurrentAnimation(int index)
 {
-	// 设置当前动画
-	if (index >= 0 && index < AnimationCount)
-		currentAnimation = index;
+    if (currentAnimation != index)
+    {
+        currentAnimation = index;
+        animations[index].setCurrentFrame(0);
+    }
 }
 int Character::getCurrentAnimation() const { return  currentAnimation; }
 void Character::changeFlip() { flip = !flip; }
