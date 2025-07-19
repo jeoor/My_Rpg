@@ -1,3 +1,3 @@
 # MyRpg
 ---
-my game using easyX
+my game using easyX from zero
