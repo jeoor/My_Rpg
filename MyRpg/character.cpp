@@ -1,40 +1,43 @@
 #include "character.h"
 
-void Character::set(double x, double y, Animation* animations, int AnimationCount)
+void Character::set(double x, double y, Animation *animations, int AnimationCount)
 {
-	Cx = x, Cy = y;
-	this->animations = animations;
-	this->AnimationCount = AnimationCount;
+    Cx = x, Cy = y;
+    this->animations = animations;
+    this->AnimationCount = AnimationCount;
 }
 void Character::set(double x, double y) { Cx = x, Cy = y; }
-void Character::set(Animation* animations, int AnimationCount)
+void Character::set(Animation *animations, int AnimationCount)
 {
-	this->animations = animations;
-	this->AnimationCount = AnimationCount;
+    this->animations = animations;
+    this->AnimationCount = AnimationCount;
 }
 void Character::updateAnimation()
 {
-	if (AnimationCount == 0) return;
+    if (AnimationCount == 0)
+        return;
 
-	// 边界检查计算
-	Cx = (int)(Cx + WINDOWS_W) % WINDOWS_W;
-	Cy = (int)(Cy + WINDOWS_H) % WINDOWS_H;
-	animations[currentAnimation].play(Cx, Cy, flip);
-	Cw = animations[currentAnimation].getW();
-	Ch = animations[currentAnimation].getH();
+    // 边界检查计算
+    Cx = (int)(Cx + WINDOWS_W) % WINDOWS_W;
+    Cy = (int)(Cy + WINDOWS_H) % WINDOWS_H;
+    animations[currentAnimation].play(Cx, Cy, flip);
 }
 void Character::updateSpeed()
 {
     // 默认加速逻辑
-    if (isMoving() || haveT()) {
-        if (CurrentSpeed < MaxSpeed) {
+    if (isMoving() || haveT())
+    {
+        if (CurrentSpeed < MaxSpeed)
+        {
             CurrentSpeed += Acceleration;
             if (CurrentSpeed > MaxSpeed)
                 CurrentSpeed = MaxSpeed;
         }
     }
-    else {
-        if (CurrentSpeed > 0.0) {
+    else
+    {
+        if (CurrentSpeed > 0.0)
+        {
             CurrentSpeed -= Acceleration;
             if (CurrentSpeed < 0.0)
                 CurrentSpeed = 0.0;
@@ -80,8 +83,8 @@ void Character::move2(int x, int y)
     double delta_len = sqrt(delta_x * delta_x + delta_y * delta_y);
 
     // 增加最小距离判断，防止过于接近
-    const double MIN_DISTANCE = ZOOM_RATE * 6.0; // 最小保持距离
-    const double SLOW_DOWN_DISTANCE = ZOOM_RATE * 20.0; // 开始减速的距离
+    const double MIN_DISTANCE = ZOOM_RATE * 5.0;        // 最小保持距离
+    const double SLOW_DOWN_DISTANCE = ZOOM_RATE * 10.0; // 开始减速的距离
 
     if (delta_len > MIN_DISTANCE)
     {
@@ -144,7 +147,7 @@ void Character::move2(int x, int y)
             if (CurrentSpeed > MaxSpeed)
                 CurrentSpeed = MaxSpeed;
         }
-        
+
         // 应用距离因素到实际速度
         double actualSpeed = CurrentSpeed * speedFactor;
 
@@ -159,7 +162,10 @@ void Character::move2(int x, int y)
         // 距离太近，停止移动并保持一定距离
         CurrentSpeed = 0.0;
         haveTarget = false;
-        setUp(false); setDown(false); setLeft(false); setRight(false);
+        setUp(false);
+        setDown(false);
+        setLeft(false);
+        setRight(false);
     }
 }
 void Character::setCurrentAnimation(int index)
@@ -170,26 +176,41 @@ void Character::setCurrentAnimation(int index)
         animations[index].setCurrentFrame(0);
     }
 }
-int Character::getCurrentAnimation() const { return  currentAnimation; }
+int Character::getCurrentAnimation() const { return currentAnimation; }
 void Character::changeFlip() { flip = !flip; }
 double Character::getX() const { return Cx; }
 double Character::getY() const { return Cy; }
 int Character::getTx() const { return Tx; }
 int Character::getTy() const { return Ty; }
-int Character::getW() const { return Cw; }
-int Character::getH() const { return Ch; }
-int Character::getCollision() const { return collision; } // 获取碰撞检测范围
-int Character::getHeight() const { return height; }
-Character::dir& Character::getDir() { return d; }
+int Character::getCenterX() const { return static_cast<int>(getX()); }
+int Character::getCenterY() const { return static_cast<int>(getY() - static_cast<double>(getHeight() / 2)); }
+int Character::getCollision() const { return collision * ZOOM_RATE; } // 获取碰撞检测范围
+int Character::getHeight() const { return height * ZOOM_RATE; }
+int Character::getAttackOffset() const { return attackOffset * ZOOM_RATE; }
+int Character::getAttackRange() const { return attackRange * ZOOM_RATE; }
+int Character::getAttackX() const { return getCenterX() + ((getDir() == dir::right) - (getDir() == dir::left)) * getAttackOffset(); }
+int Character::getAttackY() const { return getCenterY(); }
+Character::dir Character::getDir() const { return d; }
 void Character::setUp(bool isMUp) { isMoveUp = isMUp; }
 void Character::setDown(bool isMDown) { isMoveDown = isMDown; }
 void Character::setLeft(bool isMLeft) { isMoveLeft = isMLeft; }
 void Character::setRight(bool isMRight) { isMoveRight = isMRight; }
 void Character::setDir(dir di) { d = di; }
 void Character::setHeight(int h) { height = h; }
-bool Character::isMoving() const { return  isMoveUp || isMoveDown || isMoveLeft || isMoveRight; }
+bool Character::isMoving() const { return isMoveUp || isMoveDown || isMoveLeft || isMoveRight; }
 bool Character::haveT() const { return haveTarget; }
-void Character::setTarget(int x, int y) { Tx = x; Ty = y; haveTarget = true; }
+void Character::setTarget(int x, int y)
+{
+    Tx = x;
+    Ty = y;
+    haveTarget = true;
+}
 void Character::setMaxSpeed(double maxspeed) { MaxSpeed = maxspeed; }
 void Character::setAcceleration(double acceleration) { Acceleration = acceleration; }
 void Character::sethaveTarget(bool haveT) { haveTarget = haveT; }
+void Character::setAttackOffset(int offset) { attackOffset = offset; }
+void Character::setAttackRange(int range) { attackRange = range; }
+void Character::setAlive(bool Alive) { alive = Alive; }
+bool Character::isAlive() { return alive = (HP > 0); }
+void Character::Hurt() { HP--; }
+void Character::setHP(int hp) { HP = hp; }

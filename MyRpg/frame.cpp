@@ -11,7 +11,7 @@ void Frame::set(LPCTSTR pImgFile, int w, int h, double ZoomRate)
 	ZoomImage(&img, &temp, ZoomRate);
 	FlipImage(&flippedImg, &img);
 }
-void Frame::putframe(double px, double py, bool& flip)
+void Frame::putframe(double px, double py, bool &flip)
 {
 	if (flip)
 		putalpha((int)px, (int)py, &flippedImg);

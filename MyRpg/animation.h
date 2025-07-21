@@ -7,8 +7,8 @@ class Animation
 {
 public:
 	Animation() = default;
-	Animation(Frame* frames, int frameCount, int offsetX = 0, int offsetY = 0, bool loop = true);
-	void play(double px, double py, bool& filp);
+	Animation(Frame *frames, int frameCount, int offsetX = 0, int offsetY = 0, bool loop = true);
+	void play(double px, double py, bool &filp);
 	int getW() const;
 	int getH() const;
 	int getCurrentFrame() const;
@@ -20,7 +20,7 @@ public:
 	bool haveDone() const;
 
 private:
-	Frame* frames = nullptr;
+	Frame *frames = nullptr;
 	int frameCount = 0;
 	int currentFrame = 0;
 	int Aw = 0, Ah = 0;							// 像素宽高
@@ -28,9 +28,8 @@ private:
 	int offsetXFilpped = 0, offsetYFlipped = 0; // 翻转后的偏移量
 	double putX = 0.0, putY = 0.0;				// 绘制位置
 	double putXOFD = 0.0, putYOFD = 0.0;		// 翻转后的绘制位置
-	bool loop = true;							//是否循环播放
+	bool loop = true;							// 是否循环播放
 	int timer = 0;								// 计时器
 };
-
 
 #endif

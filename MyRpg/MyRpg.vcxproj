@@ -107,6 +107,7 @@
       <Optimization>Disabled</Optimization>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <AdditionalOptions> /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,6 +126,7 @@
       <AdditionalOptions> /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,22 +136,27 @@
   <ItemGroup>
     <ClInclude Include="alpha.h" />
     <ClInclude Include="animation.h" />
+    <ClInclude Include="enemy_atlas.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="console.h" />
     <ClInclude Include="edit.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="frame.h" />
     <ClInclude Include="message.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="alpha.cpp" />
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="enemy_atlas.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="console.cpp" />
     <ClCompile Include="edit.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="frame.cpp" />
@@ -157,6 +164,12 @@
     <ClCompile Include="rpg_main.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyRpg.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="source\icon\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

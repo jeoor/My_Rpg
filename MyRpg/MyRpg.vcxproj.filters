@@ -30,14 +30,20 @@
     <Filter Include="src\img_edit">
       <UniqueIdentifier>{9319c18c-b9a2-43bc-b60f-71604d944aee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\utils">
-      <UniqueIdentifier>{c485278d-918f-4a96-a75e-ea99c372992c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="inc\tool">
       <UniqueIdentifier>{c4e143f8-d02d-4795-a01d-6a3c422ac949}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\tool">
       <UniqueIdentifier>{1dd3ac6a-2a08-48fd-ab14-25baf4f86df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\message">
+      <UniqueIdentifier>{58fc4a1b-58c5-4d80-bc66-6548cb512a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{82658859-2800-499a-b868-9970a00c60c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{c485278d-918f-4a96-a75e-ea99c372992c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +83,15 @@
     <ClInclude Include="timer.h">
       <Filter>inc\tool</Filter>
     </ClInclude>
+    <ClInclude Include="console.h">
+      <Filter>inc\message</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy_atlas.h">
+      <Filter>inc\character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp">
@@ -101,7 +116,7 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
-      <Filter>src\utils</Filter>
+      <Filter>src\util</Filter>
     </ClCompile>
     <ClCompile Include="enemy.cpp">
       <Filter>src\character</Filter>
@@ -112,5 +127,21 @@
     <ClCompile Include="timer.cpp">
       <Filter>src\tool</Filter>
     </ClCompile>
+    <ClCompile Include="console.cpp">
+      <Filter>src\message</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy_atlas.cpp">
+      <Filter>src\character</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="source\icon\icon.ico">
+      <Filter>res</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyRpg.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

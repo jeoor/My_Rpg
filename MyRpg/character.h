@@ -23,7 +23,7 @@ public:
 	void set(Animation* animations, int AnimationCount);
 	void updateAnimation();
 	virtual void updateState() = 0;
-	virtual void updateSpeed(); // 虚函数，子类可重写
+	virtual void updateSpeed();
 	void Cmove();
 	void move2(int x, int y);
 	void setCurrentAnimation(int index);
@@ -33,11 +33,15 @@ public:
 	double getY() const;
 	int getTx() const;
 	int getTy() const;
-	int getW() const;
-	int getH() const;
-	int getCollision() const;// 获取碰撞检测范围
+	int getCenterX() const;
+	int getCenterY() const;
+	int getCollision() const;
 	int getHeight() const;
-	dir& getDir();
+	int getAttackOffset() const;
+	int getAttackRange() const;
+	int getAttackX() const;
+	int getAttackY() const;
+	dir getDir() const;
 	void setUp(bool isMUp);
 	void setDown(bool isMDown);
 	void setLeft(bool isMLeft);
@@ -50,26 +54,35 @@ public:
 	void setMaxSpeed(double maxspeed);
 	void setAcceleration(double acceleration);
 	void sethaveTarget(bool haveT);
+	void setAttackOffset(int offset);
+	void setAttackRange(int range);
+	void setAlive(bool Alive);
+	bool isAlive();
+	void Hurt();
+	void setHP(int hp);
 
 private:
-	int collision = 3;		// 碰撞检测范围
-	int height = 9;		// 角色高度
-	double Cx = 0.0, Cy = 0.0;		// 人物位置
-	int Tx = 0, Ty = 0;				// 目标位置
-	bool haveTarget = false;		// 是否有目标位置
+	int collision = 3;		   // 碰撞检测范围
+	int height = 9;			   // 角色高度
+	double Cx = 0.0, Cy = 0.0; // 人物位置
+	int Tx = 0, Ty = 0;		   // 目标位置
+	bool haveTarget = false;   // 是否有目标位置
 	int currentAnimation = 0;
-	Animation* animations = nullptr;
+	Animation *animations = nullptr;
 	int AnimationCount = 0;
-	int Cw = 0, Ch = 0;
 	dir d = dir::right;
-	bool flip = false;				// 是否翻转
+	bool flip = false; // 是否翻转
 	bool isMoveUp = false,
-		isMoveDown = false,
-		isMoveLeft = false,
-		isMoveRight = false;		// 是否移动
-	double Acceleration = 0.5;    // 加速度，可根据需要调整
-	double CurrentSpeed = 0.0;    // 当前速度
-	double MaxSpeed = 1.0;        // 最大速度
+		 isMoveDown = false,
+		 isMoveLeft = false,
+		 isMoveRight = false;	// 是否移动
+	double Acceleration = 0.5;	// 加速度
+	double CurrentSpeed = 0.0;	// 当前速度
+	double MaxSpeed = 1.0;		// 最大速度
+	int attackOffset = 0;		// 攻击偏移
+	int attackRange = 0;		// 攻击范围
+	bool alive = true;			// 是否存活
+	int HP = 0;					// 人物血量
 };
 
 #endif

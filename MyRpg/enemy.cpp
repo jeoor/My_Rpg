@@ -24,22 +24,25 @@ Enemy::Enemy(int x, int y)
         std::wstring path = L"source/characters/mooseman/mooseman_attack_0" + my_utils::to_wstring(i + 1) + L".png";
         attack[i].set((LPCTSTR)path.c_str(), 20, 16, ZOOM_RATE);
     }
-    Animation attackAnimation(attack, 6, 6, 15, false);
-
+    Animation attackAnimation(attack, 6, 6, 15);
 
     // 设置动画
     animations[0] = idleAnimation;
     animations[1] = runAnimation;
     animations[2] = attackAnimation;
     set(x, y, animations, 3);
-	setMaxSpeed(ENEMY_MAX_SPEED); // 设置移动速度
-	setAcceleration(ENEMY_ACCELERATION); // 设置加速度
+    setMaxSpeed(ENEMY_MAX_SPEED);        // 设置移动速度
+    setAcceleration(ENEMY_ACCELERATION); // 设置加速度
+	setHeight(10); // 设置角色高度
+	setAttackOffset(6); // 设置攻击偏移
+    setAttackRange(3); // 设置攻击范围
+	setHP(2);
 }
 
 void Enemy::updateState()
 {
     // 攻击状态优先
-    if (Attacking())
+    if (isAttacking())
     {
         // 只在刚进入攻击状态时切换动画并重置帧
         if (getCurrentAnimation() != 2)
@@ -72,11 +75,10 @@ void Enemy::Run() { setCurrentAnimation(1); }
 void Enemy::Attack() { setCurrentAnimation(2); }
 void Enemy::setAttacking(bool isATK)
 {
-    isAttacking = isATK;
+    Attacking = isATK;
     if (isATK)
     {
         setCurrentAnimation(2);
-        animations[2].setCurrentFrame(0);
     }
 }
-bool Enemy::Attacking() const { return isAttacking; }
+bool Enemy::isAttacking() const { return Attacking; }

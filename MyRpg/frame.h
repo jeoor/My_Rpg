@@ -10,14 +10,14 @@ public:
 	Frame() {}
 	Frame(LPCTSTR pImgFile, int w, int h, double ZoomRate);
 	void set(LPCTSTR pImgFile, int w, int h, double ZoomRate);
-	void putframe(double px, double py, bool& flip);
+	void putframe(double px, double py, bool &flip);
 	void flipframe();
 	int getW() const;
 	int getH() const;
 
 private:
 	IMAGE img;
-	IMAGE flippedImg;			// 翻转后的图像
+	IMAGE flippedImg; // 翻转后的图像
 };
 
 #endif

@@ -2,13 +2,13 @@
 
 Player::Player(int x, int y)
 {
-	// 待机动画
-	for (int i = 0; i < 4; ++i)
-	{
-		std::wstring path = L"source/characters/basic/basic_animesword_idle_0" + my_utils::to_wstring(i + 1) + L".png";
-		idle[i].set((LPCTSTR)path.c_str(), 32, 16, ZOOM_RATE);
-	}
-	Animation idleAnimation(idle, 4, 5, 15);
+    // 待机动画
+    for (int i = 0; i < 4; ++i)
+    {
+        std::wstring path = L"source/characters/basic/basic_animesword_idle_0" + my_utils::to_wstring(i + 1) + L".png";
+        idle[i].set((LPCTSTR)path.c_str(), 32, 16, ZOOM_RATE);
+    }
+    Animation idleAnimation(idle, 4, 5, 15);
 
     // 跑步动画
     for (int i = 0; i < 8; ++i)
@@ -18,28 +18,30 @@ Player::Player(int x, int y)
     }
     Animation runAnimation(run, 8, 8, 14);
 
-	// 攻击动画
-	for (int i = 0; i < 7; ++i)
-	{
-		std::wstring path = L"source/characters/basic/basic_animesword_attack_0" + my_utils::to_wstring(i + 1) + L".png";
-		attack[i].set((LPCTSTR)path.c_str(), 48, 24, ZOOM_RATE);
-	}
-	Animation attackAnimation(attack, 7, 8, 21, false);
+    // 攻击动画
+    for (int i = 0; i < 7; ++i)
+    {
+        std::wstring path = L"source/characters/basic/basic_animesword_attack_0" + my_utils::to_wstring(i + 1) + L".png";
+        attack[i].set((LPCTSTR)path.c_str(), 48, 24, ZOOM_RATE);
+    }
+    Animation attackAnimation(attack, 7, 8, 21, false);
 
-
-	// 设置动画
-	animations[0] = idleAnimation;
-	animations[1] = runAnimation;
-	animations[2] = attackAnimation;
-	set(x, y, animations, 3); 
-    setMaxSpeed(PLAYER_MAX_SPEED); // 设置移动速度
-	setAcceleration(PLAYER_ACCELERATION); // 设置加速度
+    // 设置动画
+    animations[0] = idleAnimation;
+    animations[1] = runAnimation;
+    animations[2] = attackAnimation;
+    set(x, y, animations, 3);
+    setMaxSpeed(PLAYER_MAX_SPEED);        // 设置移动速度
+    setAcceleration(PLAYER_ACCELERATION); // 设置加速度
+	setHeight(9); // 设置角色高度
+    setAttackOffset(10);
+    setAttackRange(6);
 }
 
 void Player::updateState()
 {
     // 攻击状态优先
-    if (Attacking())
+    if (isAttacking())
     {
         // 只在刚进入攻击状态时切换动画并重置帧
         if (getCurrentAnimation() != 2)
@@ -60,7 +62,7 @@ void Player::updateState()
     else
     {
         if (getCurrentAnimation() != 0)
-			Idle();
+            Idle();
     }
 
     if (haveT())
@@ -76,44 +78,45 @@ void Player::getMessage(ExMessage *msg)
             switch (msg->vkcode)
             {
             case VK_W:
-			case VK_UP:
-                setUp(true); 
+            case VK_UP:
+                setUp(true);
                 break;
-            case VK_A: 
-			case VK_LEFT:
-                setLeft(true); 
+            case VK_A:
+            case VK_LEFT:
+                setLeft(true);
                 break;
-            case VK_S: 
-			case VK_DOWN:
-                setDown(true); 
+            case VK_S:
+            case VK_DOWN:
+                setDown(true);
                 break;
-            case VK_D: 
-			case VK_RIGHT:
-                setRight(true); 
+            case VK_D:
+            case VK_RIGHT:
+                setRight(true);
                 break;
-            case VK_J: 
-                setAttacking(true); break;
+            case VK_J:
+                setAttacking(true);
+                break;
             }
         }
         if (msg->message == WM_KEYUP)
         {
             switch (msg->vkcode)
             {
-            case VK_W: 
-			case VK_UP:
-                setUp(false); 
+            case VK_W:
+            case VK_UP:
+                setUp(false);
                 break;
-            case VK_A: 
-			case VK_LEFT:
-                setLeft(false); 
+            case VK_A:
+            case VK_LEFT:
+                setLeft(false);
                 break;
-            case VK_S: 
-			case VK_DOWN:
-                setDown(false); 
+            case VK_S:
+            case VK_DOWN:
+                setDown(false);
                 break;
-            case VK_D: 
-			case VK_RIGHT:
-                setRight(false); 
+            case VK_D:
+            case VK_RIGHT:
+                setRight(false);
                 break;
             }
         }
@@ -123,8 +126,8 @@ void Player::getMessage(ExMessage *msg)
         }
         if (msg->message == WM_RBUTTONDOWN)
         {
-			int x = msg->x;
-			// 如果鼠标点击位置在角色左侧，设置方向为左
+            int x = msg->x;
+            // 如果鼠标点击位置在角色左侧，设置方向为左
             if (x <= getX())
             {
                 if (getDir() == dir::right)
@@ -141,7 +144,7 @@ void Player::getMessage(ExMessage *msg)
                     changeFlip();
                     setDir(dir::right);
                 }
-			}
+            }
             setAttacking(true);
         }
     }
@@ -150,13 +153,13 @@ void Player::getMessage(ExMessage *msg)
 void Player::Idle() { setCurrentAnimation(0); }
 void Player::Run() { setCurrentAnimation(1); }
 void Player::Attack() { setCurrentAnimation(2); }
-void Player::setAttacking(bool isATK) 
+void Player::setAttacking(bool isATK)
 {
-    isAttacking = isATK;
-    if (isATK) 
+    Attacking = isATK;
+    if (isATK)
     {
         setCurrentAnimation(2);
         animations[2].setCurrentFrame(0);
     }
 }
-bool Player::Attacking() const { return isAttacking; }
+bool Player::isAttacking() const { return Attacking; }

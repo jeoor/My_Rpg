@@ -1,39 +1,42 @@
 #include "animation.h"
 
-Animation::Animation(Frame* frames, int frameCount, int offsetX, int offsetY, bool loop)
+Animation::Animation(Frame *frames, int frameCount, int offsetX, int offsetY, bool loop)
 	: frames(frames), frameCount(frameCount), offsetX(offsetX), offsetY(offsetY), loop(loop)
 {
 	Aw = frames[0].getW();
 	Ah = frames[0].getH();
 	offsetXFilpped = Aw / ZOOM_RATE - offsetX, offsetYFlipped = offsetY;
 }
-void Animation::play(double px, double py, bool& filp)
+
+void Animation::play(double px, double py, bool &filp)
 {
 	if (frameCount == 0)
 		return;
 
 	timer += DELTA;
 
-	// 只有动画未完成时才更新帧
-	if ((loop || currentFrame < frameCount - 1) && timer >= DELTA_TIME)
+	// 优化后的帧更新逻辑
+	if (timer >= DELTA_TIME)
 	{
 		timer = 0;
-		currentFrame++;
-		if (loop && currentFrame >= frameCount)
-			currentFrame = 0;
-		else if (!loop && currentFrame >= frameCount)
-			currentFrame = frameCount - 1; // 非循环动画停在最后一帧
+		if (loop) {
+			currentFrame = (currentFrame + 1) % frameCount;
+		} else if (currentFrame < frameCount - 1) {
+			++currentFrame;
+		}
 	}
 
 	// 处理反转
 	if (filp)
 	{
-		putXOFD = px - offsetXFilpped * ZOOM_RATE, putYOFD = py - offsetYFlipped * ZOOM_RATE;
+		putXOFD = px - offsetXFilpped * ZOOM_RATE;
+		putYOFD = py - offsetYFlipped * ZOOM_RATE;
 		frames[currentFrame].putframe(putXOFD, putYOFD, filp);
 	}
 	else
 	{
-		putX = px - offsetX * ZOOM_RATE, putY = py - offsetY * ZOOM_RATE;
+		putX = px - offsetX * ZOOM_RATE;
+		putY = py - offsetY * ZOOM_RATE;
 		frames[currentFrame].putframe(putX, putY, filp);
 	}
 }
