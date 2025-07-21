@@ -36,7 +36,7 @@ Enemy::Enemy(int x, int y)
 	setHeight(10); // 设置角色高度
 	setAttackOffset(6); // 设置攻击偏移
     setAttackRange(3); // 设置攻击范围
-	setHP(2);
+	setHP(7);
 }
 
 void Enemy::updateState()

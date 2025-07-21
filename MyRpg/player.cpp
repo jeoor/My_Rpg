@@ -24,7 +24,7 @@ Player::Player(int x, int y)
         std::wstring path = L"source/characters/basic/basic_animesword_attack_0" + my_utils::to_wstring(i + 1) + L".png";
         attack[i].set((LPCTSTR)path.c_str(), 48, 24, ZOOM_RATE);
     }
-    Animation attackAnimation(attack, 7, 8, 21, false);
+    Animation attackAnimation(attack, 7, 8, 21);
 
     // 设置动画
     animations[0] = idleAnimation;
@@ -36,6 +36,7 @@ Player::Player(int x, int y)
 	setHeight(9); // 设置角色高度
     setAttackOffset(10);
     setAttackRange(6);
+    setHP(200);
 }
 
 void Player::updateState()
@@ -95,6 +96,9 @@ void Player::getMessage(ExMessage *msg)
                 break;
             case VK_J:
                 setAttacking(true);
+                break;
+            case VK_F1:
+                changeDebug();
                 break;
             }
         }
@@ -163,3 +167,5 @@ void Player::setAttacking(bool isATK)
     }
 }
 bool Player::isAttacking() const { return Attacking; }
+void Player::changeDebug() { debug = !debug; }
+bool Player::Debug() const { return debug; }

@@ -14,13 +14,39 @@ void Character::set(Animation *animations, int AnimationCount)
 }
 void Character::updateAnimation()
 {
+    // 更新闪烁和受击状态
+    if (!canReduceHP)
+    {
+        timer += DELTA;
+        if (timer >= 1.5 * DELTA_TIME)
+        {
+            timer = 0;
+            canReduceHP = true;
+        }
+    }
+
     if (AnimationCount == 0)
         return;
 
     // 边界检查计算
     Cx = (int)(Cx + WINDOWS_W) % WINDOWS_W;
     Cy = (int)(Cy + WINDOWS_H) % WINDOWS_H;
-    animations[currentAnimation].play(Cx, Cy, flip);
+    animations[currentAnimation].play(Cx, Cy, flip, canReduceHP);
+
+    // 绘制血条
+    setlinecolor(WHITE);
+    setlinestyle(PS_SOLID, 2);
+    double rate = HP * 1.0 / fullHP;
+    double length = 30.0;
+    double width = 5.0;
+    double XLU = getX() - length / 2;
+    double YLU = getY() - getHeight() * 1.0 - width;
+    double XRB = getX() - length / 2 + length * rate;
+    double YRB = getY() - getHeight() * 1.0;
+    setfillcolor(BLACK);
+    fillrectangle(static_cast<int>(XLU), static_cast<int>(YLU), static_cast<int>(XLU + length), static_cast<int>(YRB));
+    setfillcolor(GREEN);
+    fillrectangle(static_cast<int>(XLU), static_cast<int>(YLU), static_cast<int>(XRB), static_cast<int>(YRB));
 }
 void Character::updateSpeed()
 {
@@ -212,5 +238,14 @@ void Character::setAttackOffset(int offset) { attackOffset = offset; }
 void Character::setAttackRange(int range) { attackRange = range; }
 void Character::setAlive(bool Alive) { alive = Alive; }
 bool Character::isAlive() { return alive = (HP > 0); }
-void Character::Hurt() { HP--; }
-void Character::setHP(int hp) { HP = hp; }
+void Character::Hurt()
+{
+    // 防止连续伤害
+    if (canReduceHP)
+    {
+        canReduceHP = false;
+        HP--;
+    }
+}
+void Character::setHP(int hp) { fullHP = HP = hp; }
+bool Character::canHurt() const { return canReduceHP; }

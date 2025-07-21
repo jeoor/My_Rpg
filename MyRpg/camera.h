@@ -7,7 +7,7 @@ public:
 	Camera() = default;
 	~Camera() = default;
 	void set(double x, double y);
-	void update();
+	void update() { /*TODO*/ }
 	double getX() const;
 	double getY() const;
 	int getW() const;

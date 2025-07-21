@@ -2,6 +2,7 @@
 #define __FRAME_H__
 
 #include <easyx.h>
+#include "config.h"
 #include "edit.h"
 #include "alpha.h"
 class Frame
@@ -10,14 +11,20 @@ public:
 	Frame() {}
 	Frame(LPCTSTR pImgFile, int w, int h, double ZoomRate);
 	void set(LPCTSTR pImgFile, int w, int h, double ZoomRate);
-	void putframe(double px, double py, bool &flip);
+	void putframe(double px, double py, bool &flip, bool &canReduceHP);
 	void flipframe();
+	void sketchframe();
+	void sketchframeOFD();
+
 	int getW() const;
 	int getH() const;
 
 private:
 	IMAGE img;
-	IMAGE flippedImg; // 翻转后的图像
+	IMAGE flippedImg;		// 翻转后的图像
+	IMAGE sketchedimg;		// 纯白正图
+	IMAGE sketchedimgOFD;	// 纯白翻转图
+	int timer = 0;			// 闪烁计时器
 };
 
 #endif

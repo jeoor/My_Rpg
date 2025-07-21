@@ -2,6 +2,7 @@
 #include <time.h>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 #include <easyx.h>
 #include "alpha.h"
 #include "edit.h"
@@ -10,21 +11,24 @@
 #include "enemy.h"
 #include "console.h"
 #include "message.h"
+#pragma comment(lib, "Winmm.lib")
 
+Enemy* addEnemy();
 void initWindow(int w, int h, COLORREF color, bool showConsole);
 void setTextStyle(LONG size, const wchar_t *font);
 
 int main()
 {
+	// 加载音乐
+	mciSendString(L"open source/mus/bgm.mp3 alias bgm", nullptr, 0, nullptr);
+	mciSendString(L"open source/mus/hit.wav alias hit", nullptr, 0, nullptr);
+	mciSendString(L"open source/mus/hurt.wav alias hurt", nullptr, 0, nullptr);
+	// 播放BGM
+	mciSendString(L"play bgm repeat from 0", nullptr, 0, nullptr);
 	// 加载字体
     AddFontResourceEx(L"source/fonts/Silicon-Carne.ttf", FR_PRIVATE, NULL);
     // 绘制窗口
     initWindow(WINDOWS_W, WINDOWS_H, RGB(40, 31, 48), true);
-
-	setTextStyle(100, L"Silicon Carne");
-    LPCTSTR text = L"MyRpg";
-    int Fw = textwidth(text), Fh = textheight(text);
-	int Fx = WINDOWS_W / 2, Fy = WINDOWS_H / 2; // 字体位置
 
 	// 玩家初始化
     Player player(WINDOWS_W / 2, WINDOWS_H / 2);
@@ -45,6 +49,8 @@ int main()
 	// 初始化控制台输入线程
     initConsole();
 
+	int timer = 0; // 敌人刷新计时器
+
     BeginBatchDraw();
     while (true)
     {
@@ -60,18 +66,26 @@ int main()
         int TTw = textwidth(Time), TTh = textheight(Time); // 为下面计算绘制位置做准备
 
 		// 增加敌人
-		if (Enemy_list.size() < 10)
-			Enemy_list.emplace_back(new Enemy(rand() % WINDOWS_W, rand() % WINDOWS_H)); // 随机生成敌人
-
-		// 玩家信息处理
+		timer += DELTA;
+		if(timer >= 5 * DELTA_TIME)
+		{
+			if (Enemy_list.size() < 10)
+			{
+				timer = 0;
+				Enemy_list.emplace_back(addEnemy()); // 随机生成敌人
+			}
+		}
+		// 玩家接收信息
         player.getMessage(msg);		// 键盘消息处理
         peekConsole(player);		// 控制台消息处理
-        player.updateState();		// 更新状态
+        player.updateState();		// 更新玩家状态
 
-        for (auto& enemy : Enemy_list) {
+		// 更新敌人状态
+        for (auto& enemy : Enemy_list) 
+		{
 			enemy->move2((int)player.getX(), (int)player.getY()); // 敌人跟随玩家
 
-			//更新攻击状态
+			// 更新敌人攻击状态
 			int delta_x = enemy->getAttackX() - player.getCenterX();
 			int delta_y = enemy->getAttackY() - player.getCenterY();
 			int range = enemy->getAttackRange() + player.getCollision();
@@ -83,16 +97,34 @@ int main()
 			enemy->updateState(); // 更新敌人状态
 		}
 
-		// 攻击检测
+		// 受伤检测
 		for (auto& enemy : Enemy_list)
 		{
+			// 检测敌人受伤
 			int delta_x = enemy->getCenterX() - player.getAttackX();
 			int delta_y = enemy->getCenterY() - player.getAttackY();
 			int range = enemy->getCollision() + player.getAttackRange();
 			if (delta_x * delta_x + delta_y * delta_y <= range * range && player.isAttacking())
-				enemy->Hurt();
+			{
+				if (enemy->canHurt())
+				{
+					mciSendString(L"play hit from 0", nullptr, 0, nullptr);
+					enemy->Hurt();
+				}
+			}
+			// 检测玩家受伤
+			delta_x = enemy->getAttackX() - player.getCenterX();
+			delta_y = enemy->getAttackY() - player.getCenterY();
+			range = enemy->getAttackRange() + player.getCollision();
+			if (delta_x * delta_x + delta_y * delta_y <= range * range && enemy->isAttacking())
+				if (player.canHurt())
+				{
+					mciSendString(L"play hurt from 0", nullptr, 0, nullptr);
+					player.Hurt();
+				}
 		}
 
+		// 清除死掉的敌人
 		for (int i = 0; i < Enemy_list.size(); ++i)
 		{
 			if (!Enemy_list[i]->isAlive())
@@ -103,13 +135,31 @@ int main()
 				delete temp;
 			}
 		}
+		/*
+		// 更新Y值 防止敌人踩在玩家头上
+		for (Enemy *enemy : Enemy_list)
+		{
+			double x = enemy->getX(), y = enemy->getY();
+			double delta_x = abs(x - player.getX());
+			if(delta_x < player.getCollision())
+				if (y < player.getY() && y > player.getY() - player.getHeight())
+					enemy->set(x, player.getY() - player.getHeight());
+		}
+		*/
+		// 按照Y值排序
+		std::sort(Enemy_list.begin(), Enemy_list.end(), [](Enemy* a, Enemy* b) {return a->getY() < b->getY(); });
 
         cleardevice(); // 处理完毕 开始绘制
 
 		// 字体放在最后面
+		setTextStyle(100, L"Silicon Carne");
+		LPCTSTR text = L"MyRpg";
+		int Fw = textwidth(text), Fh = textheight(text);
+		int Fx = WINDOWS_W / 2, Fy = WINDOWS_H / 2; // 字体位置
         outtextxy(Fx - Fw / 2, Fy - Fh / 2, text);
         outtextxy(Fx - TTw / 2, Fy - 250 - TTh / 2, Time);
-		// 更新玩家
+
+		// 绘制玩家
 		player.updateAnimation();
 		if (player.haveT()) // 绘制玩家目标位置圆点
         {
@@ -121,16 +171,18 @@ int main()
 		// 绘制敌人
 		for (auto& enemy : Enemy_list)
 			enemy->updateAnimation(); // 更新敌人动画
-		// 绘制连线
-        for (auto& enemy : Enemy_list)
-        {
-            line(player.getCenterX(), player.getCenterY(), enemy->getCenterX(), enemy->getCenterY());
-            circle(enemy->getCenterX(), enemy->getCenterY(), enemy->getCollision());// 绘制敌人碰撞范围
-            circle(enemy->getAttackX(), enemy->getAttackY(), enemy->getAttackRange()); // 绘制敌人攻击范围
-        }
-        circle(player.getCenterX(), player.getCenterY(), player.getCollision());// 绘制玩家碰撞范围
-		circle(player.getAttackX(), player.getAttackY(), player.getAttackRange()); // 绘制玩家攻击范围
-
+		// 绘制连线(调试信息)
+		if (player.Debug())
+		{
+			for (auto& enemy : Enemy_list)
+			{
+				line(player.getCenterX(), player.getCenterY(), enemy->getCenterX(), enemy->getCenterY());
+				circle(enemy->getCenterX(), enemy->getCenterY(), enemy->getCollision());// 绘制敌人碰撞范围
+				circle(enemy->getAttackX(), enemy->getAttackY(), enemy->getAttackRange()); // 绘制敌人攻击范围
+			}
+			circle(player.getCenterX(), player.getCenterY(), player.getCollision());// 绘制玩家碰撞范围
+			circle(player.getAttackX(), player.getAttackY(), player.getAttackRange()); // 绘制玩家攻击范围
+		}
         FlushBatchDraw(); // 完成当前帧绘制
 
         QueryPerformanceCounter(&end); // 获取循环结束时间
@@ -146,6 +198,32 @@ int main()
     delete msg; // 释放堆内存
 
     return 0;
+}
+
+Enemy* addEnemy()
+{
+	int side = rand() % 4;
+	int x = 0, y = 0;
+	switch (side)
+	{
+	case 0:
+		y = -1;
+		x = rand() % WINDOWS_W;
+		break;
+	case 1:
+		y = WINDOWS_H;
+		x = rand() % WINDOWS_W;
+		break;
+	case 2:
+		x = -1;
+		y = rand() % WINDOWS_H;
+		break;
+	case 3:
+		x = WINDOWS_W;
+		y = y = rand() % WINDOWS_H;
+		break;
+	}
+	return new Enemy(x, y);
 }
 
 void initWindow(int w, int h, COLORREF color, bool showConsole)

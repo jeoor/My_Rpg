@@ -7,15 +7,14 @@ class Animation
 {
 public:
 	Animation() = default;
-	Animation(Frame *frames, int frameCount, int offsetX = 0, int offsetY = 0, bool loop = true);
-	void play(double px, double py, bool &filp);
+	Animation(Frame *frames, int frameCount, int offsetX = 0, int offsetY = 0);
+	void play(double px, double py, bool &filp, bool &canReduceHP);
 	int getW() const;
 	int getH() const;
 	int getCurrentFrame() const;
 	int getFrameCount() const;
 	int getFX() const;
 	int getFY() const;
-	bool Loop() const;
 	void setCurrentFrame(int index);
 	bool haveDone() const;
 
@@ -28,7 +27,6 @@ private:
 	int offsetXFilpped = 0, offsetYFlipped = 0; // 翻转后的偏移量
 	double putX = 0.0, putY = 0.0;				// 绘制位置
 	double putXOFD = 0.0, putYOFD = 0.0;		// 翻转后的绘制位置
-	bool loop = true;							// 是否循环播放
 	int timer = 0;								// 计时器
 };
 

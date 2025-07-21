@@ -16,6 +16,8 @@ public:
 	void Run();
 	void setAttacking(bool isATK);
 	bool isAttacking() const;
+	void changeDebug();
+	bool Debug() const;
 
 private:
 	Frame idle[4];				// 待机动画
@@ -23,6 +25,7 @@ private:
 	Frame attack[7];			//	攻击动画
 	Animation animations[3];
 	bool Attacking = false;		// 是否正在攻击
+	bool debug = false;			// 显示调试信息
 };
 
 #endif
