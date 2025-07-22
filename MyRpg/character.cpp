@@ -36,7 +36,7 @@ void Character::updateAnimation()
     // »æÖÆÑªÌõ
     setlinecolor(WHITE);
     setlinestyle(PS_SOLID, 2);
-    double rate = HP * 1.0 / fullHP;
+    double rate = getHPrate();
     double length = 30.0;
     double width = 5.0;
     double XLU = getX() - length / 2;
@@ -248,4 +248,16 @@ void Character::Hurt()
     }
 }
 void Character::setHP(int hp) { fullHP = HP = hp; }
+void Character::setCanAddHP(bool canAdd) { canAddHP = canAdd; }
+void Character::addHP(int hp)
+{
+    if (HP < fullHP && canAddHP)
+    {
+        canAddHP = false;
+        HP += hp;
+    }
+    if (HP >= fullHP)
+        HP = fullHP;
+}
 bool Character::canHurt() const { return canReduceHP; }
+double Character::getHPrate() const { return HP * 1.0 / fullHP; }

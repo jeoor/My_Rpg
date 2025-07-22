@@ -58,9 +58,12 @@ public:
 	void setAttackRange(int range);
 	void setAlive(bool Alive);
 	bool isAlive();
-	void Hurt(); 
+	void Hurt();
 	void setHP(int hp);
+	void setCanAddHP(bool canAdd);
+	void addHP(int hp);
 	bool canHurt() const;
+	double getHPrate() const;
 
 private:
 	int collision = 3;		   // 碰撞检测范围
@@ -86,6 +89,7 @@ private:
 	int HP = 0;					// 人物血量
 	int fullHP = 0;				// 满血时血量
 	bool canReduceHP = true;	// 是否可以减血
+	bool canAddHP = false;		// 是否可以减血
 	int timer = 0;				// 减血冷却计时器
 };
 

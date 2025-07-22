@@ -15,7 +15,7 @@
 
 Enemy* addEnemy();
 void initWindow(int w, int h, COLORREF color, bool showConsole);
-void setTextStyle(LONG size, const wchar_t *font);
+void setTextStyle(LONG size = 100, const wchar_t *font = L"Silicon Carne");
 
 int main()
 {
@@ -23,35 +23,47 @@ int main()
 	mciSendString(L"open source/mus/bgm.mp3 alias bgm", nullptr, 0, nullptr);
 	mciSendString(L"open source/mus/hit.wav alias hit", nullptr, 0, nullptr);
 	mciSendString(L"open source/mus/hurt.wav alias hurt", nullptr, 0, nullptr);
-	// 播放BGM
-	mciSendString(L"play bgm repeat from 0", nullptr, 0, nullptr);
+	mciSendString(L"open source/mus/addHP.mp3 alias addHP", nullptr, 0, nullptr);
+	mciSendString(L"open source/mus/dead.mp3 alias dead", nullptr, 0, nullptr);
 	// 加载字体
-    AddFontResourceEx(L"source/fonts/Silicon-Carne.ttf", FR_PRIVATE, NULL);
-    // 绘制窗口
-    initWindow(WINDOWS_W, WINDOWS_H, RGB(40, 31, 48), true);
-
+	AddFontResourceEx(L"source/fonts/Silicon-Carne.ttf", FR_PRIVATE, NULL);
+	// 提示信息
+	MessageBox(NULL, L"移动: WASD/ ↑↓←→/ 鼠标点击\n攻击: J/ 鼠标右键\n显示碰撞信息: F1", L"操作", MB_OK|MB_ICONASTERISK);
+	// 绘制窗口
+    initWindow(WINDOWS_W, WINDOWS_H, RGB(40, 31, 48), false);
+	cleardevice();
+	setTextStyle(80);
+	LPCTSTR loading = L"LOADING...";
+	outtextxy((WINDOWS_W - textwidth(loading)) / 2, (WINDOWS_H -  textheight(loading)) / 2, loading);
 	// 玩家初始化
     Player player(WINDOWS_W / 2, WINDOWS_H / 2);
-
+	// 初始化敌人列表
     std::vector<Enemy *> Enemy_list;
 
     // 将ExMessage移到堆上，减少栈空间占用
     ExMessage* msg = new ExMessage;
-
+	
+	// 背景文字
+	LPCTSTR text = L"MyRpg";
 	// 时间相关变量
     wchar_t Time[32];
+	wchar_t Score[32];
     SYSTEMTIME time;
-
     // 高精度计时器相关变量
     LARGE_INTEGER freq;
     QueryPerformanceFrequency(&freq);
 
 	// 初始化控制台输入线程
-    initConsole();
-
-	int timer = 0; // 敌人刷新计时器
-
-    BeginBatchDraw();
+    // initConsole();
+// 游戏开始	
+GAMEBEGIN:
+	int timer = 0;		// 敌人刷新计时器
+	int oldScore = 0;	// 上一帧的分数
+	int score = 0;		// 分数记录
+	// 播放BGM
+	mciSendString(L"play bgm repeat from 0", nullptr, 0, nullptr);
+    
+	BeginBatchDraw();
     while (true)
     {
 		// 本循环所用时间计算
@@ -59,6 +71,30 @@ int main()
         QueryPerformanceCounter(&start); // 获取循环开始时时间
 
 		// 开始绘制前处理
+
+		// 玩家死亡退出循环
+		if (!player.isAlive())
+		{
+			mciSendString(L"play dead from 0", nullptr, 0, nullptr);
+			// 释放所有的敌人
+			while (!Enemy_list.empty())
+			{
+				Enemy* temp = Enemy_list.back();
+				Enemy_list.pop_back();
+				delete temp;
+			}
+			if (MessageBox(NULL, L"死亡! 是否重新开始?\n分数: %d", L"死亡", MB_YESNO|MB_ICONHAND) == IDYES)
+			{
+				player.set(static_cast<double>(WINDOWS_W / 2), static_cast<double>(WINDOWS_H / 2));
+				player.setHP(200);
+				goto GAMEBEGIN;
+			}
+			else
+				break;
+		}
+		
+		// 记录上一帧分数
+		oldScore = score;
 
 		// 时间相关相关
         GetLocalTime(&time); // 获取系统时间
@@ -77,7 +113,7 @@ int main()
 		}
 		// 玩家接收信息
         player.getMessage(msg);		// 键盘消息处理
-        peekConsole(player);		// 控制台消息处理
+        // peekConsole(player);		// 控制台消息处理
         player.updateState();		// 更新玩家状态
 
 		// 更新敌人状态
@@ -123,9 +159,8 @@ int main()
 					player.Hurt();
 				}
 		}
-
 		// 清除死掉的敌人
-		for (int i = 0; i < Enemy_list.size(); ++i)
+		for (size_t i = 0; i < Enemy_list.size(); ++i)
 		{
 			if (!Enemy_list[i]->isAlive())
 			{
@@ -133,31 +168,44 @@ int main()
 				std::swap(Enemy_list[i], Enemy_list.back());
 				Enemy_list.pop_back();
 				delete temp;
+				score++; // 杀死敌人加分
 			}
 		}
-		/*
-		// 更新Y值 防止敌人踩在玩家头上
-		for (Enemy *enemy : Enemy_list)
-		{
-			double x = enemy->getX(), y = enemy->getY();
-			double delta_x = abs(x - player.getX());
-			if(delta_x < player.getCollision())
-				if (y < player.getY() && y > player.getY() - player.getHeight())
-					enemy->set(x, player.getY() - player.getHeight());
-		}
-		*/
+
 		// 按照Y值排序
 		std::sort(Enemy_list.begin(), Enemy_list.end(), [](Enemy* a, Enemy* b) {return a->getY() < b->getY(); });
 
-        cleardevice(); // 处理完毕 开始绘制
+		// 检测加分
+		if (!(score % 10) && oldScore != score)
+		{
+			mciSendString(L"play addHP from 0", nullptr, 0, nullptr);
+			player.setCanAddHP(true);
+			player.addHP(20);
+		}
+		// 分数相关变量
+		swprintf_s(Score, L"SCORE: %d", score);
+        
+		cleardevice(); // 处理完毕 开始绘制
 
 		// 字体放在最后面
-		setTextStyle(100, L"Silicon Carne");
-		LPCTSTR text = L"MyRpg";
+		if (!(score % 10) && score)
+		{
+			settextcolor(RED);
+			setTextStyle(25);
+		}
+		else
+		{
+			settextcolor(WHITE);
+			setTextStyle(20);
+		}
+		outtextxy(0, 0, Score);
+		settextcolor(WHITE);
+		setTextStyle(100);
 		int Fw = textwidth(text), Fh = textheight(text);
 		int Fx = WINDOWS_W / 2, Fy = WINDOWS_H / 2; // 字体位置
         outtextxy(Fx - Fw / 2, Fy - Fh / 2, text);
-        outtextxy(Fx - TTw / 2, Fy - 250 - TTh / 2, Time);
+		setTextStyle(80);
+		outtextxy(Fx - TTw / 2, Fy - 250 - TTh / 2, Time);
 
 		// 绘制玩家
 		player.updateAnimation();
@@ -193,7 +241,7 @@ int main()
         }
     }
     EndBatchDraw();
-
+	// 释放资源
     RemoveFontResourceEx(L"source/font/Silicon-Carne.ttf", FR_PRIVATE, NULL); // 释放字体
     delete msg; // 释放堆内存
 
