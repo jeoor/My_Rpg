@@ -20,15 +20,18 @@ void setTextStyle(LONG size = 100, const wchar_t *font = L"Silicon Carne");
 int main()
 {
 	// 加载音乐
+	mciSendString(L"open source/mus/load.mp3 alias load", nullptr, 0, nullptr);
+	// 提示信息
+	MessageBox(NULL, L"移动: WASD/ ↑↓←→/ 鼠标点击\n攻击: J/ 鼠标右键\n显示碰撞信息: F1", L"操作", MB_OK|MB_ICONASTERISK);
+	mciSendString(L"play load from 0", nullptr, 0, nullptr);
+	// 加载字体
+	AddFontResourceEx(L"source/fonts/Silicon-Carne.ttf", FR_PRIVATE, NULL);
+	// 加载音效
 	mciSendString(L"open source/mus/bgm.mp3 alias bgm", nullptr, 0, nullptr);
 	mciSendString(L"open source/mus/hit.wav alias hit", nullptr, 0, nullptr);
 	mciSendString(L"open source/mus/hurt.wav alias hurt", nullptr, 0, nullptr);
 	mciSendString(L"open source/mus/addHP.mp3 alias addHP", nullptr, 0, nullptr);
 	mciSendString(L"open source/mus/dead.mp3 alias dead", nullptr, 0, nullptr);
-	// 加载字体
-	AddFontResourceEx(L"source/fonts/Silicon-Carne.ttf", FR_PRIVATE, NULL);
-	// 提示信息
-	MessageBox(NULL, L"移动: WASD/ ↑↓←→/ 鼠标点击\n攻击: J/ 鼠标右键\n显示碰撞信息: F1", L"操作", MB_OK|MB_ICONASTERISK);
 	// 绘制窗口
     initWindow(WINDOWS_W, WINDOWS_H, RGB(40, 31, 48), false);
 	cleardevice();
@@ -83,7 +86,7 @@ GAMEBEGIN:
 				Enemy_list.pop_back();
 				delete temp;
 			}
-			if (MessageBox(NULL, L"死亡! 是否重新开始?\n分数: %d", L"死亡", MB_YESNO|MB_ICONHAND) == IDYES)
+			if (MessageBox(NULL, L"死亡! 是否重新开始?", L"死亡", MB_YESNO|MB_ICONHAND) == IDYES)
 			{
 				player.set(static_cast<double>(WINDOWS_W / 2), static_cast<double>(WINDOWS_H / 2));
 				player.setHP(200);
@@ -204,7 +207,7 @@ GAMEBEGIN:
 		int Fw = textwidth(text), Fh = textheight(text);
 		int Fx = WINDOWS_W / 2, Fy = WINDOWS_H / 2; // 字体位置
         outtextxy(Fx - Fw / 2, Fy - Fh / 2, text);
-		setTextStyle(80);
+		setTextStyle(100);
 		outtextxy(Fx - TTw / 2, Fy - 250 - TTh / 2, Time);
 
 		// 绘制玩家
