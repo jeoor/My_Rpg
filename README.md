@@ -67,6 +67,22 @@ make
 | Inventory | I | - |
 | Menu/Exit | ESC | - |
 
+## 🏗️ Project Structure
+
+```
+My_Rpg/
+├── 📁 MyRpg/                # Main project folder (contains source code and resources)
+│   ├── ...                 # Source code files
+│   └── 📄 resource.h       # Resource definition header file
+├── 📄 MyRpg.sln            # Visual Studio Solution file
+├── 📁 screenshot/          # Game screenshots
+├── 📄 README.md            # Project documentation
+├── 📄 LICENSE              # MIT License file
+├── 📄 SECURITY.md          # Security policy document
+├── 📄 .gitignore           # Git ignore rules
+└── 📄 .gitattributes       # Git attribute configuration
+```
+
 ## 🤝 Contributing
 
 Contributions are welcome! Here's how you can help:
