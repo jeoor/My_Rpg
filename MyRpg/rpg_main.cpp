@@ -172,19 +172,19 @@ GAMEBEGIN:
 				Enemy_list.pop_back();
 				delete temp;
 				score++; // 杀死敌人加分
+				// 检测加分
+				if (!(score % 10) && oldScore != score)
+				{
+					mciSendString(L"play addHP from 0", nullptr, 0, nullptr);
+					player.setCanAddHP(true);
+					player.addHP(20);
+				}
 			}
 		}
 
 		// 按照Y值排序
 		std::sort(Enemy_list.begin(), Enemy_list.end(), [](Enemy* a, Enemy* b) {return a->getY() < b->getY(); });
 
-		// 检测加分
-		if (!(score % 10) && oldScore != score)
-		{
-			mciSendString(L"play addHP from 0", nullptr, 0, nullptr);
-			player.setCanAddHP(true);
-			player.addHP(20);
-		}
 		// 分数相关变量
 		swprintf_s(Score, L"SCORE: %d", score);
         
