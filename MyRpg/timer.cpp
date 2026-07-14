@@ -1,18 +1,39 @@
-﻿#include "timer.h"
+#include "timer.h"
 
+Timer::Timer()
+{
+	QueryPerformanceFrequency(&freq);
+	startTime.QuadPart = 0;
+	endTime.QuadPart = 0;
+}
 
-void Timer::start() { running = true; }
-void Timer::stop() { running = false; }
+void Timer::start()
+{
+	running = true;
+	QueryPerformanceCounter(&startTime);
+}
+
+void Timer::stop()
+{
+	running = false;
+	QueryPerformanceCounter(&endTime);
+}
+
 void Timer::reset()
 {
+	running = false;
+	startTime.QuadPart = 0;
+	endTime.QuadPart = 0;
+}
 
-}
-double Timer::getElapsedTime() const // 获取经过的时间，单位为秒
+double Timer::elapsed() const
 {
-	return 0.0;
+	if (!running)
+		return static_cast<double>(endTime.QuadPart - startTime.QuadPart) / freq.QuadPart;
+
+	LARGE_INTEGER now;
+	QueryPerformanceCounter(&now);
+	return static_cast<double>(now.QuadPart - startTime.QuadPart) / freq.QuadPart;
 }
-/*
-double startTime = 0.0; // 计时开始时间
-double endTime = 0.0;   // 计时结束时间
-bool running = false;   // 是否正在计时
-*/
+
+bool Timer::isRunning() const { return running; }

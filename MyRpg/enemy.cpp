@@ -1,4 +1,4 @@
-﻿#include "enemy.h"
+#include "enemy.h"
 
 Enemy::Enemy(int x, int y)
 {
@@ -31,12 +31,12 @@ Enemy::Enemy(int x, int y)
     animations[1] = runAnimation;
     animations[2] = attackAnimation;
     set(x, y, animations, 3);
-    setMaxSpeed(ENEMY_MAX_SPEED);        // 设置移动速度
-    setAcceleration(ENEMY_ACCELERATION); // 设置加速度
-	setHeight(10); // 设置角色高度
-	setAttackOffset(6); // 设置攻击偏移
-    setAttackRange(3); // 设置攻击范围
-	setHP(7);
+    setMaxSpeed(ENEMY_MAX_SPEED);
+    setAcceleration(ENEMY_ACCELERATION);
+    setHeight(10);
+    setAttackOffset(6);
+    setAttackRange(3);
+    setHP(7);
 }
 
 void Enemy::updateState()
@@ -44,10 +44,8 @@ void Enemy::updateState()
     // 攻击状态优先
     if (isAttacking())
     {
-        // 只在刚进入攻击状态时切换动画并重置帧
         if (getCurrentAnimation() != 2)
             Attack();
-        // 播放攻击动画
         if (animations[getCurrentAnimation()].haveDone())
             setAttacking(false);
         return;
@@ -77,8 +75,6 @@ void Enemy::setAttacking(bool isATK)
 {
     Attacking = isATK;
     if (isATK)
-    {
         setCurrentAnimation(2);
-    }
 }
 bool Enemy::isAttacking() const { return Attacking; }

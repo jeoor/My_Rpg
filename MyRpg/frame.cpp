@@ -14,16 +14,16 @@ void Frame::set(LPCTSTR pImgFile, int w, int h, double ZoomRate)
 	sketchframe();		// 获得闪白正帧
 	sketchframeOFD();	// 获得闪白反帧
 }
-void Frame::putframe(double px, double py, bool &flip, bool &canReduceHP)
+void Frame::putframe(double px, double py, bool flip, bool canReduceHP)
 {
 	short flag = 1;
 	if (!canReduceHP)
 	{
 		timer += DELTA;
-		if(timer >= 0.5 * DELTA_TIME)
+		if (timer >= 0.5 * DELTA_TIME)
 		{
 			timer = 0;
-			flag++;
+			flag = !flag;
 		}
 	}
 	else

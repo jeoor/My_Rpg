@@ -1,22 +1,26 @@
-﻿#ifndef __CAMEAR_H__
-#define __CAMEAR_H__
+#ifndef __CAMERA_H__
+#define __CAMERA_H__
 
 class Camera
 {
 public:
-	Camera() = default;
-	~Camera() = default;
-	void set(double x, double y);
-	void update() { /*TODO*/ }
-	double getX() const;
-	double getY() const;
-	int getW() const;
-	int getH() const;
+	static Camera &getInstance();
+	Camera(const Camera &) = delete;
+	Camera &operator=(const Camera &) = delete;
+
+	void init(int worldW, int worldH, int screenW, int screenH);
+	void setTarget(double x, double y);
+	void update();
+	int getOffsetX() const;
+	int getOffsetY() const;
 
 private:
-	double Cax = 0.0, Cay = 0.0; // 相机位置
-	int Caw = 0, Cah = 0;		 // 相机宽高
-	int W = 0, H = 0;			 // 偏移量
+	Camera() = default;
+
+	int worldW = 0, worldH = 0;
+	int screenW = 0, screenH = 0;
+	double targetX = 0.0, targetY = 0.0;
+	double currentX = 0.0, currentY = 0.0;
 };
 
 #endif

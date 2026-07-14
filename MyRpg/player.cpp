@@ -1,4 +1,5 @@
-﻿#include "player.h"
+#include "player.h"
+#include "camera.h"
 
 Player::Player(int x, int y)
 {
@@ -126,11 +127,11 @@ void Player::getMessage(ExMessage *msg)
         }
         if (msg->message == WM_LBUTTONUP)
         {
-            setTarget(msg->x, msg->y);
+            setTarget(msg->x + Camera::getInstance().getOffsetX(), msg->y + Camera::getInstance().getOffsetY());
         }
         if (msg->message == WM_RBUTTONDOWN)
         {
-            int x = msg->x;
+            int x = msg->x + Camera::getInstance().getOffsetX();
             // 如果鼠标点击位置在角色左侧，设置方向为左
             if (x <= getX())
             {

@@ -1,20 +1,23 @@
-﻿#ifndef __TIMER_H__
+#ifndef __TIMER_H__
 #define __TIMER_H__
+
+#include <windows.h>
 
 class Timer
 {
-	public:
-	Timer() = default;
-	~Timer() = default;
+public:
+	Timer();
+
 	void start();
 	void stop();
 	void reset();
-	double getElapsedTime() const; // 获取经过的时间，单位为秒
+	double elapsed() const;     // Elapsed time in seconds
+	bool isRunning() const;
+
 private:
-	double startTime = 0.0; // 计时开始时间
-	double endTime = 0.0;   // 计时结束时间
-	bool running = false;   // 是否正在计时
+	LARGE_INTEGER freq;
+	LARGE_INTEGER startTime;
+	LARGE_INTEGER endTime;
+	bool running = false;
 };
-
 #endif
-

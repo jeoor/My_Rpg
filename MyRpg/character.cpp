@@ -1,4 +1,5 @@
-﻿#include "character.h"
+#include "character.h"
+#include <algorithm>
 
 void Character::set(double x, double y, Animation *animations, int AnimationCount)
 {
@@ -14,7 +15,7 @@ void Character::set(Animation *animations, int AnimationCount)
 }
 void Character::updateAnimation()
 {
-    // 更新闪烁和受击状态
+    // 锟斤拷锟斤拷锟斤拷烁锟斤拷锟杰伙拷状态
     if (!canReduceHP)
     {
         timer += DELTA;
@@ -28,12 +29,12 @@ void Character::updateAnimation()
     if (AnimationCount == 0)
         return;
 
-    // 边界检查计算
-    Cx = (int)(Cx + WINDOWS_W) % WINDOWS_W;
-    Cy = (int)(Cy + WINDOWS_H) % WINDOWS_H;
+    // 锟竭斤拷锟斤拷锟斤拷锟�
+    Cx = std::clamp(Cx, 0.0, static_cast<double>(WORLD_W));
+    Cy = std::clamp(Cy, 0.0, static_cast<double>(WORLD_H));
     animations[currentAnimation].play(Cx, Cy, flip, canReduceHP);
 
-    // 绘制血条
+    // 锟斤拷锟斤拷血锟斤拷
     setlinecolor(WHITE);
     setlinestyle(PS_SOLID, 2);
     double rate = getHPrate();
@@ -50,7 +51,7 @@ void Character::updateAnimation()
 }
 void Character::updateSpeed()
 {
-    // 默认加速逻辑
+    // 默锟较硷拷锟斤拷锟竭硷拷
     if (isMoving() || haveT())
     {
         if (CurrentSpeed < MaxSpeed)
@@ -94,7 +95,7 @@ void Character::Cmove()
 
     double delta_len = sqrt(delta_x * delta_x + delta_y * delta_y);
 
-    updateSpeed(); // 统一加速/减速逻辑
+    updateSpeed(); // 统一锟斤拷锟斤拷/锟斤拷锟斤拷锟竭硷拷
 
     if (delta_len != 0 && CurrentSpeed > 0.0)
     {
@@ -108,13 +109,13 @@ void Character::move2(int x, int y)
     double delta_y = static_cast<double>(y) - Cy;
     double delta_len = sqrt(delta_x * delta_x + delta_y * delta_y);
 
-    // 增加最小距离判断，防止过于接近
-    const double MIN_DISTANCE = ZOOM_RATE * 5.0;        // 最小保持距离
-    const double SLOW_DOWN_DISTANCE = ZOOM_RATE * 10.0; // 开始减速的距离
+    // 锟斤拷锟斤拷锟斤拷小锟斤拷锟斤拷锟叫断ｏ拷锟斤拷止锟斤拷锟节接斤拷
+    const double MIN_DISTANCE = ZOOM_RATE * 5.0;        // 锟斤拷小锟斤拷锟街撅拷锟斤拷
+    const double SLOW_DOWN_DISTANCE = ZOOM_RATE * 10.0; // 锟斤拷始锟斤拷锟劫的撅拷锟斤拷
 
     if (delta_len > MIN_DISTANCE)
     {
-        // 只在x方向有明显差距时才判断左右
+        // 只锟斤拷x锟斤拷锟斤拷锟斤拷锟斤拷锟皆诧拷锟绞憋拷锟斤拷卸锟斤拷锟斤拷锟�
         if (delta_x < -1e-3)
         {
             setLeft(true);
@@ -141,7 +142,7 @@ void Character::move2(int x, int y)
             setRight(false);
         }
 
-        // 上下移动标志
+        // 锟斤拷锟斤拷锟狡讹拷锟斤拷志
         if (delta_y < -1e-3)
         {
             setUp(true);
@@ -158,15 +159,15 @@ void Character::move2(int x, int y)
             setDown(false);
         }
 
-        // 根据距离动态调整速度
+        // 锟斤拷锟捷撅拷锟诫动态锟斤拷锟斤拷锟劫讹拷
         double speedFactor = 1.0;
         if (delta_len < SLOW_DOWN_DISTANCE)
         {
-            // 在减速距离内，速度逐渐降低
+            // 锟节硷拷锟劫撅拷锟斤拷锟节ｏ拷锟劫讹拷锟金渐斤拷锟斤拷
             speedFactor = (delta_len - MIN_DISTANCE) / (SLOW_DOWN_DISTANCE - MIN_DISTANCE);
         }
 
-        // 动态加速，但考虑距离因素
+        // 锟斤拷态锟斤拷锟劫ｏ拷锟斤拷锟斤拷锟角撅拷锟斤拷锟斤拷锟斤拷
         if (CurrentSpeed < MaxSpeed)
         {
             CurrentSpeed += Acceleration;
@@ -174,7 +175,7 @@ void Character::move2(int x, int y)
                 CurrentSpeed = MaxSpeed;
         }
 
-        // 应用距离因素到实际速度
+        // 应锟矫撅拷锟斤拷锟斤拷锟截碉拷实锟斤拷锟劫讹拷
         double actualSpeed = CurrentSpeed * speedFactor;
 
         if (delta_len != 0 && actualSpeed > 0.0)
@@ -185,7 +186,7 @@ void Character::move2(int x, int y)
     }
     else
     {
-        // 距离太近，停止移动并保持一定距离
+        // 锟斤拷锟斤拷太锟斤拷锟斤拷停止锟狡讹拷锟斤拷锟斤拷锟斤拷一锟斤拷锟斤拷锟斤拷
         CurrentSpeed = 0.0;
         haveTarget = false;
         setUp(false);
@@ -209,8 +210,8 @@ double Character::getY() const { return Cy; }
 int Character::getTx() const { return Tx; }
 int Character::getTy() const { return Ty; }
 int Character::getCenterX() const { return static_cast<int>(getX()); }
-int Character::getCenterY() const { return static_cast<int>(getY() - static_cast<double>(getHeight() / 2)); }
-int Character::getCollision() const { return collision * ZOOM_RATE; } // 获取碰撞检测范围
+int Character::getCenterY() const { return static_cast<int>(getY() - getHeight() * 0.5); }
+int Character::getCollision() const { return collision * ZOOM_RATE; } // 锟斤拷取锟斤拷撞锟斤拷夥段�
 int Character::getHeight() const { return height * ZOOM_RATE; }
 int Character::getAttackOffset() const { return attackOffset * ZOOM_RATE; }
 int Character::getAttackRange() const { return attackRange * ZOOM_RATE; }
@@ -236,11 +237,10 @@ void Character::setAcceleration(double acceleration) { Acceleration = accelerati
 void Character::sethaveTarget(bool haveT) { haveTarget = haveT; }
 void Character::setAttackOffset(int offset) { attackOffset = offset; }
 void Character::setAttackRange(int range) { attackRange = range; }
-void Character::setAlive(bool Alive) { alive = Alive; }
-bool Character::isAlive() { return alive = (HP > 0); }
+bool Character::isAlive() { return HP > 0; }
 void Character::Hurt()
 {
-    // 防止连续伤害
+    // 锟斤拷止锟斤拷锟斤拷锟剿猴拷
     if (canReduceHP)
     {
         canReduceHP = false;

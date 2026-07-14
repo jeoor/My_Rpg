@@ -5,10 +5,10 @@ Animation::Animation(Frame *frames, int frameCount, int offsetX, int offsetY)
 {
 	Aw = frames[0].getW();
 	Ah = frames[0].getH();
-	offsetXFilpped = Aw / ZOOM_RATE - offsetX, offsetYFlipped = offsetY;
+	offsetXFlipped = Aw / ZOOM_RATE - offsetX, offsetYFlipped = offsetY;
 }
 
-void Animation::play(double px, double py, bool &filp, bool &canReduceHP)
+void Animation::play(double px, double py, bool flip, bool canReduceHP)
 {
 	if (frameCount == 0)
 		return;
@@ -23,17 +23,17 @@ void Animation::play(double px, double py, bool &filp, bool &canReduceHP)
 	}
 
 	// 处理反转
-	if (filp)
+	if (flip)
 	{
-		putXOFD = px - offsetXFilpped * ZOOM_RATE;
+		putXOFD = px - offsetXFlipped * ZOOM_RATE;
 		putYOFD = py - offsetYFlipped * ZOOM_RATE;
-		frames[currentFrame].putframe(putXOFD, putYOFD, filp, canReduceHP);
+		frames[currentFrame].putframe(putXOFD, putYOFD, flip, canReduceHP);
 	}
 	else
 	{
 		putX = px - offsetX * ZOOM_RATE;
 		putY = py - offsetY * ZOOM_RATE;
-		frames[currentFrame].putframe(putX, putY, filp, canReduceHP);
+		frames[currentFrame].putframe(putX, putY, flip, canReduceHP);
 	}
 }
 

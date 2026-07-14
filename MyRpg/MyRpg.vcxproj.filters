@@ -14,9 +14,6 @@
     <Filter Include="inc\img_edit">
       <UniqueIdentifier>{ab8adb75-f182-47f5-b286-4ffe64cedd04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="inc\message">
-      <UniqueIdentifier>{51cef5ee-573f-4c9b-a04e-298ddbd56d32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="inc\util">
       <UniqueIdentifier>{e3afd6ca-22dd-4e77-9499-4fe5313435e7}</UniqueIdentifier>
     </Filter>
@@ -36,14 +33,17 @@
     <Filter Include="src\tool">
       <UniqueIdentifier>{1dd3ac6a-2a08-48fd-ab14-25baf4f86df2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\message">
-      <UniqueIdentifier>{58fc4a1b-58c5-4d80-bc66-6548cb512a01}</UniqueIdentifier>
-    </Filter>
     <Filter Include="res">
       <UniqueIdentifier>{82658859-2800-499a-b868-9970a00c60c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\util">
       <UniqueIdentifier>{c485278d-918f-4a96-a75e-ea99c372992c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\scene">
+      <UniqueIdentifier>{a1b2c3d4-e5f6-7890-abcd-ef1234567890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene">
+      <UniqueIdentifier>{f9e8d7c6-b5a4-3210-fedc-ba0987654321}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -80,17 +80,32 @@
     <ClInclude Include="camera.h">
       <Filter>inc\tool</Filter>
     </ClInclude>
+    <ClInclude Include="end_scene.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="game_scene.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="game_state.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene_manager.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="start_scene.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
     <ClInclude Include="timer.h">
       <Filter>inc\tool</Filter>
     </ClInclude>
-    <ClInclude Include="console.h">
-      <Filter>inc\message</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>res</Filter>
-    </ClInclude>
-    <ClInclude Include="enemy_atlas.h">
-      <Filter>inc\character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +138,21 @@
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>src\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="end_scene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="game_scene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene_manager.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="start_scene.cpp">
+      <Filter>src\scene</Filter>
     </ClCompile>
     <ClCompile Include="timer.cpp">
       <Filter>src\tool</Filter>

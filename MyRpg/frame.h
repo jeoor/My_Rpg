@@ -1,4 +1,4 @@
-﻿#ifndef __FRAME_H__
+#ifndef __FRAME_H__
 #define __FRAME_H__
 
 #include <easyx.h>
@@ -11,7 +11,7 @@ public:
 	Frame() {}
 	Frame(LPCTSTR pImgFile, int w, int h, double ZoomRate);
 	void set(LPCTSTR pImgFile, int w, int h, double ZoomRate);
-	void putframe(double px, double py, bool &flip, bool &canReduceHP);
+	void putframe(double px, double py, bool flip, bool canReduceHP);
 	void flipframe();
 	void sketchframe();
 	void sketchframeOFD();
@@ -26,5 +26,4 @@ private:
 	IMAGE sketchedimgOFD;	// 纯白翻转图
 	int timer = 0;			// 闪烁计时器
 };
-
 #endif

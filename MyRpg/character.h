@@ -1,4 +1,4 @@
-﻿#ifndef __CHARACTER_H__
+#ifndef __CHARACTER_H__
 #define __CHARACTER_H__
 
 #include <iostream>
@@ -56,7 +56,6 @@ public:
 	void sethaveTarget(bool haveT);
 	void setAttackOffset(int offset);
 	void setAttackRange(int range);
-	void setAlive(bool Alive);
 	bool isAlive();
 	void Hurt();
 	void setHP(int hp);
@@ -85,11 +84,10 @@ private:
 	double MaxSpeed = 1.0;		// 最大速度
 	int attackOffset = 0;		// 攻击偏移
 	int attackRange = 0;		// 攻击范围
-	bool alive = true;			// 是否存活
 	int HP = 0;					// 人物血量
 	int fullHP = 0;				// 满血时血量
 	bool canReduceHP = true;	// 是否可以减血
-	bool canAddHP = false;		// 是否可以减血
+	bool canAddHP = false;		// 是否可以回血
 	int timer = 0;				// 减血冷却计时器
 };
 

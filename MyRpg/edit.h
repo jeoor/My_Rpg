@@ -5,5 +5,4 @@
 void ZoomImage(IMAGE *TarImg, IMAGE *OriImg, double ZoomRate);
 void FlipImage(IMAGE *TarImg, IMAGE *OriImg);
 void SketchImage(IMAGE* TarImg, IMAGE* OriImg);
-
 #endif

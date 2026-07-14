@@ -29,13 +29,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -43,12 +43,12 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -138,32 +138,40 @@
   <ItemGroup>
     <ClInclude Include="alpha.h" />
     <ClInclude Include="animation.h" />
-    <ClInclude Include="enemy_atlas.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="console.h" />
     <ClInclude Include="edit.h" />
+    <ClInclude Include="end_scene.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="frame.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="game_scene.h" />
+    <ClInclude Include="game_state.h" />
     <ClInclude Include="message.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="scene.h" />
+    <ClInclude Include="scene_manager.h" />
+    <ClInclude Include="start_scene.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="alpha.cpp" />
     <ClCompile Include="animation.cpp" />
-    <ClCompile Include="enemy_atlas.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="character.cpp" />
-    <ClCompile Include="console.cpp" />
     <ClCompile Include="edit.cpp" />
+    <ClCompile Include="end_scene.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="frame.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="game_scene.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="rpg_main.cpp" />
+    <ClCompile Include="scene_manager.cpp" />
+    <ClCompile Include="start_scene.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
@@ -173,6 +181,9 @@
   <ItemGroup>
     <Image Include="source\icon\icon.ico" />
   </ItemGroup>
+  <Target Name="CopyAssets" AfterTargets="Build">
+    <Exec Command="xcopy /Y /E /I /D &quot;$(ProjectDir)source&quot; &quot;$(OutDir)source&quot;" />
+  </Target>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
