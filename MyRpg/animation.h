@@ -1,4 +1,4 @@
-#ifndef __ANIMATION_H__
+ï»¿#ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
 #include "frame.h"
@@ -22,12 +22,12 @@ private:
 	Frame *frames = nullptr;
 	int frameCount = 0;
 	int currentFrame = 0;
-	int Aw = 0, Ah = 0;							// ÏñËØ¿í¸ß
-	int offsetX = 0, offsetY = 0;				// ÏñËØÆ«ÒÆÁ¿
-	int offsetXFilpped = 0, offsetYFlipped = 0; // ·­×ªºóµÄÆ«ÒÆÁ¿
-	double putX = 0.0, putY = 0.0;				// »æÖÆÎ»ÖÃ
-	double putXOFD = 0.0, putYOFD = 0.0;		// ·­×ªºóµÄ»æÖÆÎ»ÖÃ
-	int timer = 0;								// ¼ÆÊ±Æ÷
+	int Aw = 0, Ah = 0;							// åƒç´ å®½é«˜
+	int offsetX = 0, offsetY = 0;				// åƒç´ åç§»é‡
+	int offsetXFilpped = 0, offsetYFlipped = 0; // ç¿»è½¬åçš„åç§»é‡
+	double putX = 0.0, putY = 0.0;				// ç»˜åˆ¶ä½ç½®
+	double putXOFD = 0.0, putYOFD = 0.0;		// ç¿»è½¬åçš„ç»˜åˆ¶ä½ç½®
+	int timer = 0;								// è®¡æ—¶å™¨
 };
 
 #endif

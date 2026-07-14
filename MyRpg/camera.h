@@ -1,4 +1,4 @@
-#ifndef __CAMEAR_H__
+ï»¿#ifndef __CAMEAR_H__
 #define __CAMEAR_H__
 
 class Camera
@@ -14,9 +14,9 @@ public:
 	int getH() const;
 
 private:
-	double Cax = 0.0, Cay = 0.0; // Ïà»úÎ»ÖÃ
-	int Caw = 0, Cah = 0;		 // Ïà»ú¿í¸ß
-	int W = 0, H = 0;			 // Æ«ÒÆÁ¿
+	double Cax = 0.0, Cay = 0.0; // ç›¸æœºä½ç½®
+	int Caw = 0, Cah = 0;		 // ç›¸æœºå®½é«˜
+	int W = 0, H = 0;			 // åç§»é‡
 };
 
 #endif

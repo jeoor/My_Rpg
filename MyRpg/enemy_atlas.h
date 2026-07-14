@@ -1,4 +1,4 @@
-#ifndef __ENEMY_ATLAS_H__
+ï»¿#ifndef __ENEMY_ATLAS_H__
 #define __ENEMY_ATLAS_H__
 
 #include <string>
@@ -9,9 +9,9 @@ class Atlas
 public:
 	Atlas();
 	~Atlas() = default;
-	Frame idle[4];	 // ´ý»ú¶¯»­
-	Frame run[4];	 // ÅÜ²½¶¯»­
-	Frame attack[6]; //	¹¥»÷¶¯»­
+	Frame idle[4];	 // å¾…æœºåŠ¨ç”»
+	Frame run[4];	 // è·‘æ­¥åŠ¨ç”»
+	Frame attack[6]; //	æ”»å‡»åŠ¨ç”»
 	Animation animations[3];
 };
 

@@ -1,4 +1,4 @@
-#ifndef __ENEMY_H__
+ï»¿#ifndef __ENEMY_H__
 #define __ENEMY_H__
 
 #include "character.h"
@@ -17,11 +17,11 @@ public:
 	bool isAttacking() const;
 
 private:
-	Frame idle[4];	 // ´ı»ú¶¯»­
-	Frame run[4];	 // ÅÜ²½¶¯»­
-	Frame attack[6]; //	¹¥»÷¶¯»­
+	Frame idle[4];	 // å¾…æœºåŠ¨ç”»
+	Frame run[4];	 // è·‘æ­¥åŠ¨ç”»
+	Frame attack[6]; //	æ”»å‡»åŠ¨ç”»
 	Animation animations[3];
-	bool Attacking = false; // ÊÇ·ñÕıÔÚ¹¥»÷
+	bool Attacking = false; // æ˜¯å¦æ­£åœ¨æ”»å‡»
 };
 
 #endif

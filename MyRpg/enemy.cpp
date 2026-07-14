@@ -1,8 +1,8 @@
-#include "enemy.h"
+ï»¿#include "enemy.h"
 
 Enemy::Enemy(int x, int y)
 {
-    // ´ý»ú¶¯»­
+    // å¾…æœºåŠ¨ç”»
     for (int i = 0; i < 4; ++i)
     {
         std::wstring path = L"source/characters/mooseman/mooseman_idle_0" + my_utils::to_wstring(i + 1) + L".png";
@@ -10,7 +10,7 @@ Enemy::Enemy(int x, int y)
     }
     Animation idleAnimation(idle, 4, 6, 15);
 
-    // ÅÜ²½¶¯»­
+    // è·‘æ­¥åŠ¨ç”»
     for (int i = 0; i < 4; ++i)
     {
         std::wstring path = L"source/characters/mooseman/mooseman_run_0" + my_utils::to_wstring(i + 1) + L".png";
@@ -18,7 +18,7 @@ Enemy::Enemy(int x, int y)
     }
     Animation runAnimation(run, 4, 5, 14);
 
-    // ¹¥»÷¶¯»­
+    // æ”»å‡»åŠ¨ç”»
     for (int i = 0; i < 6; ++i)
     {
         std::wstring path = L"source/characters/mooseman/mooseman_attack_0" + my_utils::to_wstring(i + 1) + L".png";
@@ -26,34 +26,34 @@ Enemy::Enemy(int x, int y)
     }
     Animation attackAnimation(attack, 6, 6, 15);
 
-    // ÉèÖÃ¶¯»­
+    // è®¾ç½®åŠ¨ç”»
     animations[0] = idleAnimation;
     animations[1] = runAnimation;
     animations[2] = attackAnimation;
     set(x, y, animations, 3);
-    setMaxSpeed(ENEMY_MAX_SPEED);        // ÉèÖÃÒÆ¶¯ËÙ¶È
-    setAcceleration(ENEMY_ACCELERATION); // ÉèÖÃ¼ÓËÙ¶È
-	setHeight(10); // ÉèÖÃ½ÇÉ«¸ß¶È
-	setAttackOffset(6); // ÉèÖÃ¹¥»÷Æ«ÒÆ
-    setAttackRange(3); // ÉèÖÃ¹¥»÷·¶Î§
+    setMaxSpeed(ENEMY_MAX_SPEED);        // è®¾ç½®ç§»åŠ¨é€Ÿåº¦
+    setAcceleration(ENEMY_ACCELERATION); // è®¾ç½®åŠ é€Ÿåº¦
+	setHeight(10); // è®¾ç½®è§’è‰²é«˜åº¦
+	setAttackOffset(6); // è®¾ç½®æ”»å‡»åç§»
+    setAttackRange(3); // è®¾ç½®æ”»å‡»èŒƒå›´
 	setHP(7);
 }
 
 void Enemy::updateState()
 {
-    // ¹¥»÷×´Ì¬ÓÅÏÈ
+    // æ”»å‡»çŠ¶æ€ä¼˜å…ˆ
     if (isAttacking())
     {
-        // Ö»ÔÚ¸Õ½øÈë¹¥»÷×´Ì¬Ê±ÇÐ»»¶¯»­²¢ÖØÖÃÖ¡
+        // åªåœ¨åˆšè¿›å…¥æ”»å‡»çŠ¶æ€æ—¶åˆ‡æ¢åŠ¨ç”»å¹¶é‡ç½®å¸§
         if (getCurrentAnimation() != 2)
             Attack();
-        // ²¥·Å¹¥»÷¶¯»­
+        // æ’­æ”¾æ”»å‡»åŠ¨ç”»
         if (animations[getCurrentAnimation()].haveDone())
             setAttacking(false);
         return;
     }
 
-    // ÒÆ¶¯×´Ì¬
+    // ç§»åŠ¨çŠ¶æ€
     if (isMoving())
     {
         if (getCurrentAnimation() != 1)

@@ -1,4 +1,4 @@
-#ifndef __CONSOLE_H__
+ï»¿#ifndef __CONSOLE_H__
 #define __CONSOLE_H__
 
 #include <iostream>
@@ -9,7 +9,7 @@
 #include "player.h"
 #include "enemy.h"
 
-// ¿ØÖÆÌ¨ÊäÈëÏß³Ì
+// æ§åˆ¶å°è¾“å…¥çº¿ç¨‹
 void ConsoleInputThread();
 void initConsole();
 void peekConsole(Player &player);

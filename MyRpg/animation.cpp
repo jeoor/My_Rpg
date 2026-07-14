@@ -1,4 +1,4 @@
-#include "animation.h"
+ï»¿#include "animation.h"
 
 Animation::Animation(Frame *frames, int frameCount, int offsetX, int offsetY)
 	: frames(frames), frameCount(frameCount), offsetX(offsetX), offsetY(offsetY)
@@ -15,14 +15,14 @@ void Animation::play(double px, double py, bool &filp, bool &canReduceHP)
 
 	timer += DELTA;
 
-	// ÓÅ»¯ºóµÄÖ¡¸üÐÂÂß¼­
+	// ä¼˜åŒ–åŽçš„å¸§æ›´æ–°é€»è¾‘
 	if (timer >= DELTA_TIME)
 	{
 		timer = 0;
 		currentFrame = (currentFrame + 1) % frameCount;
 	}
 
-	// ´¦Àí·´×ª
+	// å¤„ç†åè½¬
 	if (filp)
 	{
 		putXOFD = px - offsetXFilpped * ZOOM_RATE;
@@ -47,6 +47,6 @@ void Animation::setCurrentFrame(int index)
 {
 	if (index >= 0 && index < frameCount)
 		currentFrame = index;
-	timer = 0; // ÇÐ»»¶¯»­Ê±ÖØÖÃ¼ÆÊ±Æ÷
+	timer = 0; // åˆ‡æ¢åŠ¨ç”»æ—¶é‡ç½®è®¡æ—¶å™¨
 }
 bool Animation::haveDone() const { return currentFrame >= frameCount - 1; }

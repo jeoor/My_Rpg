@@ -1,4 +1,4 @@
-#ifndef __PLAYER_H__
+ï»¿#ifndef __PLAYER_H__
 #define __PLAYER_H__
 
 #include "character.h"
@@ -20,12 +20,12 @@ public:
 	bool Debug() const;
 
 private:
-	Frame idle[4];				// ´ı»ú¶¯»­
-	Frame run[8];				// ÅÜ²½¶¯»­
-	Frame attack[7];			//	¹¥»÷¶¯»­
+	Frame idle[4];				// å¾…æœºåŠ¨ç”»
+	Frame run[8];				// è·‘æ­¥åŠ¨ç”»
+	Frame attack[7];			//	æ”»å‡»åŠ¨ç”»
 	Animation animations[3];
-	bool Attacking = false;		// ÊÇ·ñÕıÔÚ¹¥»÷
-	bool debug = false;			// ÏÔÊ¾µ÷ÊÔĞÅÏ¢
+	bool Attacking = false;		// æ˜¯å¦æ­£åœ¨æ”»å‡»
+	bool debug = false;			// æ˜¾ç¤ºè°ƒè¯•ä¿¡æ¯
 };
 
 #endif

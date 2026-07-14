@@ -1,8 +1,8 @@
-#include "enemy_atlas.h"
+ï»¿#include "enemy_atlas.h"
 
 Atlas::Atlas()
 {
-	// ´ý»ú¶¯»­
+	// å¾…æœºåŠ¨ç”»
 	for (int i = 0; i < 4; ++i)
 	{
 		std::wstring path = L"source/characters/mooseman/mooseman_idle_0" + my_utils::to_wstring(i + 1) + L".png";
@@ -10,7 +10,7 @@ Atlas::Atlas()
 	}
 	Animation idleAnimation(idle, 4, 6, 15);
 
-	// ÅÜ²½¶¯»­
+	// è·‘æ­¥åŠ¨ç”»
 	for (int i = 0; i < 4; ++i)
 	{
 		std::wstring path = L"source/characters/mooseman/mooseman_run_0" + my_utils::to_wstring(i + 1) + L".png";
@@ -18,7 +18,7 @@ Atlas::Atlas()
 	}
 	Animation runAnimation(run, 4, 5, 14);
 
-	// ¹¥»÷¶¯»­
+	// æ”»å‡»åŠ¨ç”»
 	for (int i = 0; i < 6; ++i)
 	{
 		std::wstring path = L"source/characters/mooseman/mooseman_attack_0" + my_utils::to_wstring(i + 1) + L".png";
@@ -26,7 +26,7 @@ Atlas::Atlas()
 	}
 	Animation attackAnimation(attack, 6, 6, 15);
 
-	// ÉèÖÃ¶¯»­
+	// è®¾ç½®åŠ¨ç”»
 	animations[0] = idleAnimation;
 	animations[1] = runAnimation;
 	animations[2] = attackAnimation;

@@ -1,31 +1,31 @@
-#ifndef __CONFIG_H__
+ï»¿#ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#if __cplusplus >= 201103L							// C++11 ¼°ÒÔÉÏ
-constexpr inline int ZOOM_RATE = 5;					// Ëõ·ÅÂÊ
-constexpr inline int WINDOWS_W = 750;				// ´°¿Ú¿í¶È
-constexpr inline int WINDOWS_H = 750;				// ´°¿Ú¸ß¶È
-constexpr inline int FPS = 60;						// Ö¡ÂÊ
-constexpr inline double FRAME_BREAK = 1000.0 / FPS;		// Ö¡¼ä¸ô
-constexpr inline double PLAYER_MAX_SPEED = 1.0;		// Íæ¼ÒÒÆ¶¯ËÙ¶È
-constexpr inline double ENEMY_MAX_SPEED = 0.3;		// µĞÈËÒÆ¶¯ËÙ¶È
-constexpr inline double PLAYER_ACCELERATION = 0.5;	// Íæ¼Ò¼ÓËÙ¶È
-constexpr inline double ENEMY_ACCELERATION = 0.3;	// µĞÈË¼ÓËÙ¶È
-constexpr inline int DELTA_TIME = FPS / 10;			// ¶¯»­Ö¡¼ä¸ô
-constexpr inline int DELTA = 1;						// Ö¡¸üĞÂ¼ä¸ô
+#if __cplusplus >= 201103L							// C++11 åŠä»¥ä¸Š
+constexpr inline int ZOOM_RATE = 5;					// ç¼©æ”¾ç‡
+constexpr inline int WINDOWS_W = 750;				// çª—å£å®½åº¦
+constexpr inline int WINDOWS_H = 750;				// çª—å£é«˜åº¦
+constexpr inline int FPS = 60;						// å¸§ç‡
+constexpr inline double FRAME_BREAK = 1000.0 / FPS;		// å¸§é—´éš”
+constexpr inline double PLAYER_MAX_SPEED = 1.0;		// ç©å®¶ç§»åŠ¨é€Ÿåº¦
+constexpr inline double ENEMY_MAX_SPEED = 0.3;		// æ•Œäººç§»åŠ¨é€Ÿåº¦
+constexpr inline double PLAYER_ACCELERATION = 0.5;	// ç©å®¶åŠ é€Ÿåº¦
+constexpr inline double ENEMY_ACCELERATION = 0.3;	// æ•ŒäººåŠ é€Ÿåº¦
+constexpr inline int DELTA_TIME = FPS / 10;			// åŠ¨ç”»å¸§é—´éš”
+constexpr inline int DELTA = 1;						// å¸§æ›´æ–°é—´éš”
 
 #else
-#define WINDOWS_W 750			// ´°¿Ú¿í¶È
-#define WINDOWS_H 750			// ´°¿Ú¸ß¶È
-#define ZOOM_RATE 5				// Ëõ·ÅÂÊ
-#define FPS 60					// Ö¡ÂÊ
-#define FRAME_BREAK 1000 / FPS	// Ö¡¼ä¸ô
-#define PLAYER_MAX_SPEED 1.0	// Íæ¼ÒÒÆ¶¯ËÙ¶È
-#define ENEMY_MAX_SPEED 0.3		// µĞÈËÒÆ¶¯ËÙ¶È
-#define PLAYER_ACCELERATION 0.5	// Íæ¼Ò¼ÓËÙ¶È
-#define ENEMY_ACCELERATION 0.3	// µĞÈË¼ÓËÙ¶È
-#define DELTA_TIME FPS / 10		// ¶¯»­Ö¡¼ä¸ô
-#define DELTA 1					// Ö¡¸üĞÂ¼ä¸ô
+#define WINDOWS_W 750			// çª—å£å®½åº¦
+#define WINDOWS_H 750			// çª—å£é«˜åº¦
+#define ZOOM_RATE 5				// ç¼©æ”¾ç‡
+#define FPS 60					// å¸§ç‡
+#define FRAME_BREAK 1000 / FPS	// å¸§é—´éš”
+#define PLAYER_MAX_SPEED 1.0	// ç©å®¶ç§»åŠ¨é€Ÿåº¦
+#define ENEMY_MAX_SPEED 0.3		// æ•Œäººç§»åŠ¨é€Ÿåº¦
+#define PLAYER_ACCELERATION 0.5	// ç©å®¶åŠ é€Ÿåº¦
+#define ENEMY_ACCELERATION 0.3	// æ•ŒäººåŠ é€Ÿåº¦
+#define DELTA_TIME FPS / 10		// åŠ¨ç”»å¸§é—´éš”
+#define DELTA 1					// å¸§æ›´æ–°é—´éš”
 #endif
 
 #endif
