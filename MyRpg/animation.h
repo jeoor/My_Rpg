@@ -5,10 +5,10 @@
 #include "config.h"
 class Animation
 {
-public:
+  public:
 	Animation() = default;
 	Animation(Frame *frames, int frameCount, int offsetX = 0, int offsetY = 0);
-	void play(double px, double py, bool flip, bool canReduceHP);
+	void play(double px, double py, bool flip, bool canReduceHp);
 	int getW() const;
 	int getH() const;
 	int getCurrentFrame() const;
@@ -18,7 +18,7 @@ public:
 	void setCurrentFrame(int index);
 	bool haveDone() const;
 
-private:
+  private:
 	Frame *frames = nullptr;
 	int frameCount = 0;
 	int currentFrame = 0;

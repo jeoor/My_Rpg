@@ -1,80 +1,53 @@
 #include "enemy.h"
-
+#include "ai.h"
+#include "collision.h"
+#include "asset.h"
 Enemy::Enemy(int x, int y)
 {
-    // 待机动画
-    for (int i = 0; i < 4; ++i)
-    {
-        std::wstring path = L"source/characters/mooseman/mooseman_idle_0" + my_utils::to_wstring(i + 1) + L".png";
-        idle[i].set((LPCTSTR)path.c_str(), 16, 16, ZOOM_RATE);
-    }
-    Animation idleAnimation(idle, 4, 6, 15);
-
-    // 跑步动画
-    for (int i = 0; i < 4; ++i)
-    {
-        std::wstring path = L"source/characters/mooseman/mooseman_run_0" + my_utils::to_wstring(i + 1) + L".png";
-        run[i].set((LPCTSTR)path.c_str(), 16, 16, ZOOM_RATE);
-    }
-    Animation runAnimation(run, 4, 5, 14);
-
-    // 攻击动画
-    for (int i = 0; i < 6; ++i)
-    {
-        std::wstring path = L"source/characters/mooseman/mooseman_attack_0" + my_utils::to_wstring(i + 1) + L".png";
-        attack[i].set((LPCTSTR)path.c_str(), 20, 16, ZOOM_RATE);
-    }
-    Animation attackAnimation(attack, 6, 6, 15);
-
-    // 设置动画
-    animations[0] = idleAnimation;
-    animations[1] = runAnimation;
-    animations[2] = attackAnimation;
-    set(x, y, animations, 3);
-    setMaxSpeed(ENEMY_MAX_SPEED);
-    setAcceleration(ENEMY_ACCELERATION);
-    setHeight(10);
-    setAttackOffset(6);
-    setAttackRange(3);
-    setHP(7);
+	auto &am = AssetManager::getInstance();
+	Animation idleAnim(am.getFrames(L"enemy_idle"), 4, 6, 15);
+	Animation runAnim(am.getFrames(L"enemy_run"), 4, 5, 14);
+	Animation atkAnim(am.getFrames(L"enemy_attack"), 6, 6, 15);
+	animations[0] = idleAnim;
+	animations[1] = runAnim;
+	animations[2] = atkAnim;
+	set(x, y, animations, 3);
+	setMaxSpeed(ENEMY_MAX_SPEED);
+	setAcceleration(ENEMY_ACCELERATION);
+	setHeight(10);
+	setAttackOffset(6);
+	setAttackRange(3);
+	setHp(7);
 }
-
 void Enemy::updateState()
 {
-    // 攻击状态优先
-    if (isAttacking())
-    {
-        if (getCurrentAnimation() != 2)
-            Attack();
-        if (animations[getCurrentAnimation()].haveDone())
-            setAttacking(false);
-        return;
-    }
-
-    // 移动状态
-    if (isMoving())
-    {
-        if (getCurrentAnimation() != 1)
-            Run();
-        Cmove();
-    }
-    else
-    {
-        if (getCurrentAnimation() != 0)
-            Idle();
-    }
-
-    if (haveT())
-        move2(getTx(), getTy());
+	// 只负责动画状态, 移动由 FishAI::navigate() 处理
+	if (isAttacking())
+	{
+		if (getCurrentAnimation() != 2)
+			attack();
+		if (animations[getCurrentAnimation()].haveDone())
+			setAttacking(false);
+		return;
+	}
+	if (isMoving())
+	{
+		if (getCurrentAnimation() != 1)
+			run();
+	}
+	else
+	{
+		if (getCurrentAnimation() != 0)
+			idle();
+	}
 }
-
-void Enemy::Idle() { setCurrentAnimation(0); }
-void Enemy::Run() { setCurrentAnimation(1); }
-void Enemy::Attack() { setCurrentAnimation(2); }
-void Enemy::setAttacking(bool isATK)
+void Enemy::idle() { setCurrentAnimation(0); }
+void Enemy::run() { setCurrentAnimation(1); }
+void Enemy::attack() { setCurrentAnimation(2); }
+void Enemy::setAttacking(bool isAtk)
 {
-    Attacking = isATK;
-    if (isATK)
-        setCurrentAnimation(2);
+	if (isAtk && !attacking)
+		setCurrentAnimation(2);
+	attacking = isAtk;
 }
-bool Enemy::isAttacking() const { return Attacking; }
+bool Enemy::isAttacking() const { return attacking; }

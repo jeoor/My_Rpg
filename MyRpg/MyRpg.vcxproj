@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -138,41 +138,47 @@
   <ItemGroup>
     <ClInclude Include="alpha.h" />
     <ClInclude Include="animation.h" />
+    <ClInclude Include="ai.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="character.h" />
+    <ClInclude Include="collision.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="edit.h" />
-    <ClInclude Include="end_scene.h" />
+    <ClInclude Include="endScene.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="frame.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="game_scene.h" />
-    <ClInclude Include="game_state.h" />
+    <ClInclude Include="gameScene.h" />
+    <ClInclude Include="gameState.h" />
     <ClInclude Include="message.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="scene.h" />
-    <ClInclude Include="scene_manager.h" />
-    <ClInclude Include="start_scene.h" />
-    <ClInclude Include="timer.h" />
+    <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="startScene.h" />
+
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ai.cpp" />
     <ClCompile Include="alpha.cpp" />
+    <ClCompile Include="asset.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="collision.cpp" />
     <ClCompile Include="edit.cpp" />
-    <ClCompile Include="end_scene.cpp" />
+    <ClCompile Include="endScene.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="frame.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="game_scene.cpp" />
+    <ClCompile Include="gameScene.cpp" />
+    <ClCompile Include="message.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="rpg_main.cpp" />
-    <ClCompile Include="scene_manager.cpp" />
-    <ClCompile Include="start_scene.cpp" />
-    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="rpgMain.cpp" />
+    <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="startScene.cpp" />
+
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>

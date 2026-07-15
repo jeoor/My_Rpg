@@ -1,0 +1,455 @@
+@startuml
+skinparam classAttributeIconSize 0
+enum "GameState" as C_0003981560271957445032
+enum C_0003981560271957445032 {
+Running
+Start
+Playing
+GameOver
+Quit
+}
+abstract "Scene" as C_0005375663403181666835
+abstract C_0005375663403181666835 {
++~Scene() constexpr = default : void
+..
+{abstract} +onEnter() = 0 : void
+{abstract} +onExit() = 0 : void
+{abstract} +onFrame(SceneManager & sm) = 0 : GameState
+__
+}
+class "std::pair<int,int>" as C_0009301287866340846572
+class C_0009301287866340846572 {
+__
+}
+class "std::vector<std::pair<int,int>>" as C_0010270754785463322816
+class C_0010270754785463322816 {
+__
+}
+class "std::unique_ptr<Player>" as C_0004534020899441168361
+class C_0004534020899441168361 {
+__
+}
+class "std::unique_ptr<Enemy>" as C_0012532595725804692574
+class C_0012532595725804692574 {
+__
+}
+class "std::vector<std::unique_ptr<Enemy>>" as C_0006467603986444782414
+class C_0006467603986444782414 {
+__
+}
+class "std::vector<Enemy *>" as C_0009430377003785395031
+class C_0009430377003785395031 {
+__
+}
+class "std::vector<Character *>" as C_0018411344653322743822
+class C_0018411344653322743822 {
+__
+}
+class "std::unique_ptr<Scene>" as C_0001570496254251954042
+class C_0001570496254251954042 {
+__
+}
+class "std::char_traits<wchar_t>" as C_0000182050653298951142
+class C_0000182050653298951142 {
+__
+}
+class "std::allocator<wchar_t>" as C_0015503406542504525345
+class C_0015503406542504525345 {
+__
+}
+class "std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>" as C_0001050142891919128217
+class C_0001050142891919128217 {
+__
+}
+class "std::vector<Frame>" as C_0014410036990320653538
+class C_0014410036990320653538 {
+__
+}
+class "std::unordered_map<std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,std::vector<Frame>>" as C_0004751546198169969454
+class C_0004751546198169969454 {
+__
+}
+class "Frame" as C_0017228831225763461510
+class C_0017228831225763461510 {
++Frame() : void
++Frame(LPCTSTR pImgFile, int w, int h, double zoomRate) : void
+..
++flipframe() : void
++getH() const : int
++getW() const : int
++putframe(double px, double py, bool flip, bool canReduceHp) : void
++set(LPCTSTR pImgFile, int w, int h, double zoomRate) : void
++sketchframe() : void
++sketchframeOFD() : void
+__
+-flippedImg : IMAGE
+-img : IMAGE
+-sketchedimg : IMAGE
+-sketchedimgOFD : IMAGE
+-timer : int
+}
+class "Animation" as C_0011962374237075642621
+class C_0011962374237075642621 {
++Animation() = default : void
++Animation(Frame * frames, int frameCount, int offsetX = 0, int offsetY = 0) : void
+..
++getCurrentFrame() const : int
++getFX() const : int
++getFY() const : int
++getFrameCount() const : int
++getH() const : int
++getW() const : int
++haveDone() const : bool
++play(double px, double py, bool flip, bool canReduceHp) : void
++setCurrentFrame(int index) : void
+__
+-Ah : int
+-Aw : int
+-currentFrame : int
+-frameCount : int
+-frames : Frame *
+-offsetX : int
+-offsetXFlipped : int
+-offsetY : int
+-offsetYFlipped : int
+-putX : double
+-putXOFD : double
+-putY : double
+-putYOFD : double
+-timer : int
+}
+abstract "Character" as C_0012393382550867685456
+abstract C_0012393382550867685456 {
++Character() = default : void
++~Character() constexpr = default : void
+..
++addHp(int amount) : void
++canHurt() const : bool
++changeFlip() : void
++getAttackOffset() const : int
++getAttackRange() const : int
++getAttackX() const : int
++getAttackY() const : int
++getCenterX() const : int
++getCenterY() const : int
++getCollision() const : int
++getCurrentAnimation() const : int
++getDir() const : dir
++getHeight() const : int
++getHpRate() const : double
++getTx() const : int
++getTy() const : int
++getX() const : double
++getY() const : double
++haveT() const : bool
++hurt() : void
++isAlive() : bool
++isMoving() const : bool
++move() : void
++move2(int x, int y, bool slowDown = true) : void
++set(double x, double y) : void
++set(Animation * anims, int animationTotal) : void
++set(double x, double y, Animation * anims, int animationTotal) : void
++setAcceleration(double value) : void
++setAttackOffset(int offset) : void
++setAttackRange(int range) : void
++setCanAddHp(bool canAdd) : void
++setCurrentAnimation(int index) : void
++setDir(dir di) : void
++setDown(bool isMDown) : void
++setHaveTarget(bool haveT) : void
++setHeight(int h) : void
++setHp(int value) : void
++setLeft(bool isMLeft) : void
++setMaxSpeed(double value) : void
++setRight(bool isMRight) : void
++setTarget(int x, int y) : void
++setUp(bool isMUp) : void
++stopMove() : void
++updateAnimation() : void
++updateSpeed() : void
+{abstract} +updateState() = 0 : void
+__
+-acceleration : double
+-animationCount : int
+-animations : Animation *
+-attackOffset : int
+-attackRange : int
+-canAddHp : bool
+-canReduceHp : bool
+-collision : int
+-currentAnimation : int
+-currentSpeed : double
+-currentX : double
+-currentY : double
+-d : dir
+-flip : bool
+-fullHp : int
+-haveTarget : bool
+-height : int
+-hp : int
+-isMoveDown : bool
+-isMoveLeft : bool
+-isMoveRight : bool
+-isMoveUp : bool
+-maxSpeed : double
+-targetX : int
+-targetY : int
+-timer : int
+}
+enum "Character::dir" as C_0006789587452866426261
+enum C_0006789587452866426261 {
+right
+left
+}
+class "Player" as C_0003692324345213718176
+class C_0003692324345213718176 {
++Player() = default : void
++Player(int x, int y) : void
++~Player() constexpr = default : void
+..
++attack() : void
++changeDebug() : void
+-clearPath() : void
++getDestinationX() const : int
++getDestinationY() const : int
++getMessage() : void
++havePath() const : bool
++idle() : void
++isAttacking() const : bool
++isDebug() const : bool
++run() : void
++setAttacking(bool isAtk) : void
+-setPathTarget(int x, int y) : void
+-updatePath() : void
++updateState() : void
+__
+-animations : Animation[3]
+-attacking : bool
+-debug : bool
+-destinationX : int
+-destinationY : int
+-path : std::vector<std::pair<int,int>>
+-pathActive : bool
+-pathIndex : size_t
+}
+class "Enemy" as C_0018162179630194765227
+class C_0018162179630194765227 {
++Enemy() = default : void
++Enemy(int x, int y) : void
++~Enemy() constexpr = default : void
+..
++attack() : void
++idle() : void
++isAttacking() const : bool
++run() : void
++setAttacking(bool isAtk) : void
++updateState() : void
+__
+-animations : Animation[3]
+-attacking : bool
+}
+class "Obstacle" as C_0008072291683289314308
+class C_0008072291683289314308 {
+__
++h : int
++w : int
++x : int
++y : int
+}
+class "GameScene" as C_0004198675053829191301
+class C_0004198675053829191301 {
++GameScene() : void
+..
+-buildRenderOrder() : void
++onEnter() : void
++onExit() : void
++onFrame(SceneManager & sm) : GameState
+-removeDeadEnemies() : void
+-renderDebugInfo() : void
+-renderGameObjects() : void
+-renderUI(int fps) : void
+-spawnEnemy() : void
+-updateCombat() : void
+-updateNavigationField() : void
+__
+-enemyList : std::vector<std::unique_ptr<Enemy>>
+-enemyPointers : std::vector<Enemy *>
+-escWasDown : bool
+-navigationField : int[40][40]
+-navigationTargetX : int
+-navigationTargetY : int
+-oldScore : int
+-paused : bool
+-player : std::unique_ptr<Player>
+-reachableGrid : bool[40][40]
+-renderOrder : std::vector<Character *>
+-score : int
+-spawnTimer : int
+-walkGrid : bool[40][40]
+}
+class "EndScene" as C_0006881187704162646746
+class C_0006881187704162646746 {
++EndScene(int score) : void
+..
++onEnter() : void
++onExit() : void
++onFrame(SceneManager & sm) : GameState
+__
+-blinkTimer : int
+-lastScore : int
+-showPrompt : bool
+}
+class "SceneManager" as C_0001828870162017714850
+class C_0001828870162017714850 {
+-createScene(GameState state) : std::unique_ptr<Scene>
++getFps() const : int
++getScore() const : int
++run() : void
++setScore(int score) : void
+-transitionTo(GameState state) : void
+__
+-currentFps : int
+-currentScene : std::unique_ptr<Scene>
+-currentState : GameState
+-running : bool
+-score : int
+}
+class "Camera" as C_0006111862596534002478
+class C_0006111862596534002478 {
++Camera(const Camera &) = deleted : void
+-Camera() = default : void
+..
++operator=(const Camera &) = deleted : Camera &
+..
+{static} +getInstance() : Camera &
++getOffsetX() const : int
++getOffsetY() const : int
++init(int worldW, int worldH, int screenW, int screenH) : void
++setTarget(double x, double y) : void
++update() : void
+__
+-currentX : double
+-currentY : double
+-screenH : int
+-screenW : int
+-targetX : double
+-targetY : double
+-worldH : int
+-worldW : int
+}
+class "AssetManager" as C_0013387286671426488442
+class C_0013387286671426488442 {
++AssetManager(const AssetManager &) = deleted : void
+-AssetManager() = default : void
+..
++operator=(const AssetManager &) = deleted : AssetManager &
+..
++getFrameCount(const std::wstring & name) const : int
++getFrames(const std::wstring & name) : Frame *
+{static} +getInstance() : AssetManager &
++init() : void
+-load(const std::wstring & name, const std::wstring & path, int count, int w, int h, int zoom) : void
+__
+-pool : std::unordered_map<std::wstring,std::vector<Frame>>
+}
+class "Game" as C_0013071880978633431303
+class C_0013071880978633431303 {
++Game(const Game &) = deleted : void
+-Game() : void
+-~Game() : void
+..
++operator=(const Game &) = deleted : Game &
+..
+{static} +getInstance() : Game &
+-loadResources() : void
++run() : int
+__
+}
+class "Message" as C_0008784495861667683076
+class C_0008784495861667683076 {
++Message(const Message &) = deleted : void
+-Message() = default : void
+..
++operator=(const Message &) = deleted : Message &
+..
+{static} +getInstance() : Message &
++getMsg() : ExMessage &
++poll() : bool
+__
+-msg : ExMessage
+}
+class "StartScene" as C_0001293178787362437341
+class C_0001293178787362437341 {
++onEnter() : void
++onExit() : void
++onFrame(SceneManager & sm) : GameState
+__
+-circleX : int
+-circleY : int
+-player : std::unique_ptr<Player>
+}
+class "TimerResolutionGuard" as C_0008853725328638299629
+class C_0008853725328638299629 {
++TimerResolutionGuard() : void
++TimerResolutionGuard(const TimerResolutionGuard &) = deleted : void
++~TimerResolutionGuard() : void
+..
++operator=(const TimerResolutionGuard &) = deleted : TimerResolutionGuard &
+__
+}
+class "BatchDrawGuard" as C_0016343543219014372242
+class C_0016343543219014372242 {
++BatchDrawGuard() : void
++BatchDrawGuard(const BatchDrawGuard &) = deleted : void
++~BatchDrawGuard() : void
+..
++operator=(const BatchDrawGuard &) = deleted : BatchDrawGuard &
+__
+}
+C_0005375663403181666835 ..> C_0001828870162017714850
+C_0005375663403181666835 ..> C_0003981560271957445032
+C_0010270754785463322816 ..> C_0009301287866340846572
+C_0004534020899441168361 ..> C_0003692324345213718176
+C_0012532595725804692574 ..> C_0018162179630194765227
+C_0006467603986444782414 ..> C_0012532595725804692574
+C_0009430377003785395031 ..> C_0018162179630194765227
+C_0018411344653322743822 ..> C_0012393382550867685456
+C_0001570496254251954042 ..> C_0005375663403181666835
+C_0001050142891919128217 ..> C_0000182050653298951142
+C_0001050142891919128217 ..> C_0015503406542504525345
+C_0014410036990320653538 ..> C_0017228831225763461510
+C_0004751546198169969454 ..> C_0001050142891919128217
+C_0004751546198169969454 ..> C_0014410036990320653538
+C_0011962374237075642621 --> C_0017228831225763461510 : -frames
+C_0012393382550867685456 --> C_0011962374237075642621 : -animations
+C_0012393382550867685456 o-- C_0006789587452866426261 : -d
+C_0003692324345213718176 o-- "3" C_0011962374237075642621 : -animations
+C_0003692324345213718176 o-- C_0010270754785463322816 : -path
+C_0012393382550867685456 <|-- C_0003692324345213718176
+C_0018162179630194765227 o-- "3" C_0011962374237075642621 : -animations
+C_0012393382550867685456 <|-- C_0018162179630194765227
+C_0004198675053829191301 ..> C_0001828870162017714850
+C_0004198675053829191301 ..> C_0003981560271957445032
+C_0004198675053829191301 o-- C_0004534020899441168361 : -player
+C_0004198675053829191301 o-- C_0006467603986444782414 : -enemyList
+C_0004198675053829191301 o-- C_0009430377003785395031 : -enemyPointers
+C_0004198675053829191301 o-- C_0018411344653322743822 : -renderOrder
+C_0005375663403181666835 <|-- C_0004198675053829191301
+C_0006881187704162646746 ..> C_0001828870162017714850
+C_0006881187704162646746 ..> C_0003981560271957445032
+C_0005375663403181666835 <|-- C_0006881187704162646746
+C_0001828870162017714850 ..> C_0005375663403181666835
+C_0001828870162017714850 o-- C_0001570496254251954042 : -currentScene
+C_0001828870162017714850 o-- C_0003981560271957445032 : -currentState
+C_0013387286671426488442 ..> C_0001050142891919128217
+C_0013387286671426488442 ..> C_0017228831225763461510
+C_0013387286671426488442 o-- C_0004751546198169969454 : -pool
+C_0001293178787362437341 ..> C_0001828870162017714850
+C_0001293178787362437341 ..> C_0003981560271957445032
+C_0001293178787362437341 o-- C_0004534020899441168361 : -player
+C_0005375663403181666835 <|-- C_0001293178787362437341
+
+'Generated with clang-uml, version 0.6.3
+'LLVM version clang version 22.1.8 (https://github.com/llvm/llvm-project.git ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+@enduml

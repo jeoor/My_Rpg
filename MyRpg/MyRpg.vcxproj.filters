@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="inc">
@@ -14,8 +14,17 @@
     <Filter Include="inc\img_edit">
       <UniqueIdentifier>{ab8adb75-f182-47f5-b286-4ffe64cedd04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc\message">
+      <UniqueIdentifier>{51cef5ee-573f-4c9b-a04e-298ddbd56d32}</UniqueIdentifier>
+    </Filter>
     <Filter Include="inc\util">
       <UniqueIdentifier>{e3afd6ca-22dd-4e77-9499-4fe5313435e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\tool">
+      <UniqueIdentifier>{c4e143f8-d02d-4795-a01d-6a3c422ac949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\scene">
+      <UniqueIdentifier>{a1b2c3d4-e5f6-7890-abcd-ef1234567890}</UniqueIdentifier>
     </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
@@ -27,23 +36,17 @@
     <Filter Include="src\img_edit">
       <UniqueIdentifier>{9319c18c-b9a2-43bc-b60f-71604d944aee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="inc\tool">
-      <UniqueIdentifier>{c4e143f8-d02d-4795-a01d-6a3c422ac949}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\tool">
       <UniqueIdentifier>{1dd3ac6a-2a08-48fd-ab14-25baf4f86df2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="res">
-      <UniqueIdentifier>{82658859-2800-499a-b868-9970a00c60c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\util">
       <UniqueIdentifier>{c485278d-918f-4a96-a75e-ea99c372992c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="inc\scene">
-      <UniqueIdentifier>{a1b2c3d4-e5f6-7890-abcd-ef1234567890}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\scene">
       <UniqueIdentifier>{f9e8d7c6-b5a4-3210-fedc-ba0987654321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{82658859-2800-499a-b868-9970a00c60c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +60,12 @@
       <Filter>inc\character</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
+      <Filter>inc\character</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>inc\character</Filter>
+    </ClInclude>
+    <ClInclude Include="ai.h">
       <Filter>inc\character</Filter>
     </ClInclude>
     <ClInclude Include="alpha.h">
@@ -74,35 +83,32 @@
     <ClInclude Include="utils.h">
       <Filter>inc\util</Filter>
     </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>inc\character</Filter>
-    </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>inc\tool</Filter>
     </ClInclude>
-    <ClInclude Include="end_scene.h">
+    <ClInclude Include="collision.h">
+      <Filter>inc\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="endScene.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
-    <ClInclude Include="game_scene.h">
+    <ClInclude Include="gameScene.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
-    <ClInclude Include="game_state.h">
+    <ClInclude Include="gameState.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
     <ClInclude Include="scene.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
-    <ClInclude Include="scene_manager.h">
+    <ClInclude Include="sceneManager.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
-    <ClInclude Include="start_scene.h">
+    <ClInclude Include="startScene.h">
       <Filter>inc\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="timer.h">
-      <Filter>inc\tool</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>res</Filter>
@@ -121,47 +127,47 @@
     <ClCompile Include="player.cpp">
       <Filter>src\character</Filter>
     </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>src\character</Filter>
+    </ClCompile>
+    <ClCompile Include="ai.cpp">
+      <Filter>src\character</Filter>
+    </ClCompile>
     <ClCompile Include="alpha.cpp">
       <Filter>src\img_edit</Filter>
     </ClCompile>
     <ClCompile Include="edit.cpp">
       <Filter>src\img_edit</Filter>
     </ClCompile>
-    <ClCompile Include="rpg_main.cpp">
+    <ClCompile Include="camera.cpp">
+      <Filter>src\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>src\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="rpgMain.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>src\util</Filter>
     </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>src\character</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>src\tool</Filter>
-    </ClCompile>
-    <ClCompile Include="end_scene.cpp">
+    <ClCompile Include="endScene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
-    <ClCompile Include="game_scene.cpp">
+    <ClCompile Include="gameScene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
-    <ClCompile Include="scene_manager.cpp">
+    <ClCompile Include="message.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
-    <ClCompile Include="start_scene.cpp">
+    <ClCompile Include="sceneManager.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
-    <ClCompile Include="timer.cpp">
-      <Filter>src\tool</Filter>
-    </ClCompile>
-    <ClCompile Include="console.cpp">
-      <Filter>src\message</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy_atlas.cpp">
-      <Filter>src\character</Filter>
+    <ClCompile Include="startScene.cpp">
+      <Filter>src\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

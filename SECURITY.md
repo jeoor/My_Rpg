@@ -1,21 +1,15 @@
 # Security Policy
 
-## Supported Versions
+## Scope
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+MyRpg 是本地运行的 EasyX 课程项目，不包含账号、网络服务、远程更新或用户数据上传功能。当前维护范围仅为 `main` 分支的最新代码。
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+## Reporting Issues
 
-## Reporting a Vulnerability
+请通过仓库 Issue 或课程提交渠道报告会导致以下问题的缺陷：
 
-Use this section to tell people how to report a vulnerability.
+- 读取工程目录外的文件或执行非预期命令。
+- 解析图片、音频或地图资源时崩溃。
+- 由异常输入触发的内存越界、死循环或拒绝响应。
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+报告应包含复现步骤、构建配置、相关资源文件及截图或日志。请勿提交个人路径、账号信息或受版权限制的第三方资源。

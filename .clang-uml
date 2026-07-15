@@ -1,0 +1,30 @@
+compilation_database_dir: .
+output_directory: docs/diagrams
+diagrams:
+  project_class_diagram:
+    type: class
+    glob:
+      - "MyRpg/*.h"
+      - "MyRpg/*.cpp"
+    exclude:
+      paths:
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\VS\\include\\easyx.h"
+      elements:
+        - type: class
+          name: IMAGE
+        - type: class
+          name: ExMessage
+        - type: class
+          name: POINT
+    include:
+      relationships:
+        - inheritance
+        - association
+        - aggregation
+        - composition
+        - dependency
+    generate_method_arguments: full
+    member_order: lexical
+    plantuml:
+      before:
+        - "skinparam classAttributeIconSize 0"

@@ -1,33 +1,33 @@
 #include "edit.h"
-
-void ZoomImage(IMAGE *TarImg, IMAGE *OriImg, double ZoomRate)
+void zoomImage(IMAGE *targetImg, IMAGE *originImg, double zoomRate)
 {
-	TarImg->Resize((int)(OriImg->getwidth() * ZoomRate), (int)(OriImg->getheight() * ZoomRate));
-	DWORD *M = GetImageBuffer(TarImg);
-	DWORD *N = GetImageBuffer(OriImg);
+	targetImg->Resize((int)(originImg->getwidth() * zoomRate), (int)(originImg->getheight() * zoomRate));
+	DWORD *M = GetImageBuffer(targetImg);
+	DWORD *N = GetImageBuffer(originImg);
 
-	for (int i = 0; i < TarImg->getheight(); i++)
-		for (int j = 0; j < TarImg->getwidth(); j++)
-			M[j + i * TarImg->getwidth()] = N[(int)(j / ZoomRate) + (int)(i / ZoomRate) * OriImg->getwidth()];
+	for (int i = 0; i < targetImg->getheight(); i++)
+		for (int j = 0; j < targetImg->getwidth(); j++)
+			M[j + i * targetImg->getwidth()] =
+				N[(int)(j / zoomRate) + (int)(i / zoomRate) * originImg->getwidth()];
 }
-void FlipImage(IMAGE *TarImg, IMAGE *OriImg)
+void flipImage(IMAGE *targetImg, IMAGE *originImg)
 {
-	TarImg->Resize((int)(OriImg->getwidth()), (int)(OriImg->getheight()));
-	DWORD *M = GetImageBuffer(TarImg);
-	DWORD *N = GetImageBuffer(OriImg);
+	targetImg->Resize((int)(originImg->getwidth()), (int)(originImg->getheight()));
+	DWORD *M = GetImageBuffer(targetImg);
+	DWORD *N = GetImageBuffer(originImg);
 
-	for (int i = 0; i < TarImg->getwidth(); i++)
-		for (int j = 0; j < TarImg->getheight(); j++)
-			M[j * TarImg->getwidth() + i] = N[j * TarImg->getwidth() + TarImg->getwidth() - i - 1];
+	for (int i = 0; i < targetImg->getwidth(); i++)
+		for (int j = 0; j < targetImg->getheight(); j++)
+			M[j * targetImg->getwidth() + i] = N[j * targetImg->getwidth() + targetImg->getwidth() - i - 1];
 }
-void SketchImage(IMAGE* TarImg, IMAGE* OriImg)
+void sketchImage(IMAGE *targetImg, IMAGE *originImg)
 {
-	TarImg->Resize((int)(OriImg->getwidth()), (int)(OriImg->getheight()));
-	DWORD* M = GetImageBuffer(TarImg);
-	DWORD* N = GetImageBuffer(OriImg);
+	targetImg->Resize((int)(originImg->getwidth()), (int)(originImg->getheight()));
+	DWORD *M = GetImageBuffer(targetImg);
+	DWORD *N = GetImageBuffer(originImg);
 
-	for (int i = 0; i < TarImg->getheight(); i++)
-		for (int j = 0; j < TarImg->getwidth(); j++)
-			if (N[i * TarImg->getwidth() + j] & 0xFF000000)
-				M[i * TarImg->getwidth() + j] = BGR(RGB(255, 255, 255)) | (((DWORD)(BYTE)(255)) << 24);
+	for (int i = 0; i < targetImg->getheight(); i++)
+		for (int j = 0; j < targetImg->getwidth(); j++)
+			if (N[i * targetImg->getwidth() + j] & 0xFF000000)
+				M[i * targetImg->getwidth() + j] = BGR(RGB(255, 255, 255)) | (((DWORD)(BYTE)(255)) << 24);
 }

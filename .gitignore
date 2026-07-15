@@ -111,6 +111,8 @@ ipch/
 *.cachefile
 *.VC.db
 *.VC.VC.opendb
+*.VC.db-shm
+*.VC.db-wal
 
 # Visual Studio profiler
 *.psess
@@ -361,3 +363,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Local C++ language-server and patch artifacts
+.clangd/
+*.orig
+*.rej

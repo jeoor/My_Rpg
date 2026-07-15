@@ -2,19 +2,17 @@
 #define __GAME_H__
 
 #include <windows.h>
-
 class Game
 {
-public:
+  public:
 	static Game &getInstance();
 	Game(const Game &) = delete;
 	Game &operator=(const Game &) = delete;
 	int run();
 
-private:
+  private:
 	Game();
 	~Game();
 	void loadResources();
 };
-
 #endif

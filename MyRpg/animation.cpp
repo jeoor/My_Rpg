@@ -1,5 +1,4 @@
-﻿#include "animation.h"
-
+#include "animation.h"
 Animation::Animation(Frame *frames, int frameCount, int offsetX, int offsetY)
 	: frames(frames), frameCount(frameCount), offsetX(offsetX), offsetY(offsetY)
 {
@@ -7,8 +6,7 @@ Animation::Animation(Frame *frames, int frameCount, int offsetX, int offsetY)
 	Ah = frames[0].getH();
 	offsetXFlipped = Aw / ZOOM_RATE - offsetX, offsetYFlipped = offsetY;
 }
-
-void Animation::play(double px, double py, bool flip, bool canReduceHP)
+void Animation::play(double px, double py, bool flip, bool canReduceHp)
 {
 	if (frameCount == 0)
 		return;
@@ -27,16 +25,15 @@ void Animation::play(double px, double py, bool flip, bool canReduceHP)
 	{
 		putXOFD = px - offsetXFlipped * ZOOM_RATE;
 		putYOFD = py - offsetYFlipped * ZOOM_RATE;
-		frames[currentFrame].putframe(putXOFD, putYOFD, flip, canReduceHP);
+		frames[currentFrame].putframe(putXOFD, putYOFD, flip, canReduceHp);
 	}
 	else
 	{
 		putX = px - offsetX * ZOOM_RATE;
 		putY = py - offsetY * ZOOM_RATE;
-		frames[currentFrame].putframe(putX, putY, flip, canReduceHP);
+		frames[currentFrame].putframe(putX, putY, flip, canReduceHp);
 	}
 }
-
 int Animation::getW() const { return Aw; }
 int Animation::getH() const { return Ah; }
 int Animation::getCurrentFrame() const { return currentFrame; }

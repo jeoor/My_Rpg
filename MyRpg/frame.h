@@ -7,11 +7,11 @@
 #include "alpha.h"
 class Frame
 {
-public:
+  public:
 	Frame() {}
-	Frame(LPCTSTR pImgFile, int w, int h, double ZoomRate);
-	void set(LPCTSTR pImgFile, int w, int h, double ZoomRate);
-	void putframe(double px, double py, bool flip, bool canReduceHP);
+	Frame(LPCTSTR pImgFile, int w, int h, double zoomRate);
+	void set(LPCTSTR pImgFile, int w, int h, double zoomRate);
+	void putframe(double px, double py, bool flip, bool canReduceHp);
 	void flipframe();
 	void sketchframe();
 	void sketchframeOFD();
@@ -19,11 +19,11 @@ public:
 	int getW() const;
 	int getH() const;
 
-private:
+  private:
 	IMAGE img;
-	IMAGE flippedImg;		// 翻转后的图像
-	IMAGE sketchedimg;		// 纯白正图
-	IMAGE sketchedimgOFD;	// 纯白翻转图
-	int timer = 0;			// 闪烁计时器
+	IMAGE flippedImg;	  // 翻转后的图像
+	IMAGE sketchedimg;	  // 纯白正图
+	IMAGE sketchedimgOFD; // 纯白翻转图
+	int timer = 0;		  // 闪烁计时器
 };
 #endif

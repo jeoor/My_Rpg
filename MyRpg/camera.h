@@ -1,9 +1,8 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
-
 class Camera
 {
-public:
+  public:
 	static Camera &getInstance();
 	Camera(const Camera &) = delete;
 	Camera &operator=(const Camera &) = delete;
@@ -14,7 +13,7 @@ public:
 	int getOffsetX() const;
 	int getOffsetY() const;
 
-private:
+  private:
 	Camera() = default;
 
 	int worldW = 0, worldH = 0;
@@ -22,5 +21,4 @@ private:
 	double targetX = 0.0, targetY = 0.0;
 	double currentX = 0.0, currentY = 0.0;
 };
-
 #endif

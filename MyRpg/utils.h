@@ -2,7 +2,8 @@
 #define __UTILS_H__
 
 #include <string>
-namespace my_utils {
-	std::wstring to_wstring(int value);
+namespace myUtils
+{
+std::wstring toWstring(int value);
 }
 #endif
