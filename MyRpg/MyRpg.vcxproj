@@ -139,6 +139,7 @@
     <ClInclude Include="alpha.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="ai.h" />
+	<ClInclude Include="asset.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="collision.h" />
@@ -156,7 +157,6 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="startScene.h" />
-
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +178,6 @@
     <ClCompile Include="rpgMain.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="startScene.cpp" />
-
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>

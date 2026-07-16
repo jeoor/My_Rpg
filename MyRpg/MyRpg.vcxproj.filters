@@ -8,6 +8,9 @@
     <Filter Include="inc\character">
       <UniqueIdentifier>{13574a9c-185b-4d0d-83d6-0f46e892f8ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc\asset">
+      <UniqueIdentifier>{7dfbfaa4-f1cc-40b8-8973-af594cfb4dcf}</UniqueIdentifier>
+    </Filter>
     <Filter Include="inc\config">
       <UniqueIdentifier>{686cba2d-ef3e-4c42-ab82-3db182b41c2a}</UniqueIdentifier>
     </Filter>
@@ -32,6 +35,9 @@
     </Filter>
     <Filter Include="src\character">
       <UniqueIdentifier>{89638250-165e-40c2-87b0-f165e2e2f8a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\asset">
+      <UniqueIdentifier>{eacbcd2e-6708-4b6b-9734-d20f86c51166}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\img_edit">
       <UniqueIdentifier>{9319c18c-b9a2-43bc-b60f-71604d944aee}</UniqueIdentifier>
@@ -67,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="ai.h">
       <Filter>inc\character</Filter>
+    </ClInclude>
+    <ClInclude Include="asset.h">
+      <Filter>inc\asset</Filter>
     </ClInclude>
     <ClInclude Include="alpha.h">
       <Filter>inc\img_edit</Filter>
@@ -132,6 +141,9 @@
     </ClCompile>
     <ClCompile Include="ai.cpp">
       <Filter>src\character</Filter>
+    </ClCompile>
+    <ClCompile Include="asset.cpp">
+      <Filter>src\asset</Filter>
     </ClCompile>
     <ClCompile Include="alpha.cpp">
       <Filter>src\img_edit</Filter>
